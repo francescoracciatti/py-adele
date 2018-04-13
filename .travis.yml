@@ -1,14 +1,8 @@
+# language
 language: python
-  python:
-    - "3.6"
-os: osx
-sudo: enabled
-before-install:
-  - sudo apt-get update
-  - sudo apt-get install python3
-install:
-  - pip install -r requirements.txt
-script: python3 test/test.py
-branches:
-  only:
-    - master
+python:
+  - "3.6"
+# command to install dependencies
+install: "pip install -r requirements.txt"
+# command to run tests
+script: python test/test.py

@@ -36,8 +36,10 @@ file_handler.setLevel(log_level)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
+from enum import unique, Enum
 
 if __name__ == '__main__':
     logger.info("Py-ADeLe is running ...")
+    logger.info(Token.Keyword.B)
     logger.info("Done")
 
