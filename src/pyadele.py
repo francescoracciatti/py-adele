@@ -10,8 +10,6 @@ Copyright 2018 Francesco Racciatti
 """
 
 import logging
-import sys
-
 
 # TODO to parametrize
 log_level = logging.DEBUG
