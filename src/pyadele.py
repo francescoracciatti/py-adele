@@ -40,6 +40,5 @@ from enum import unique, Enum
 
 if __name__ == '__main__':
     logger.info("Py-ADeLe is running ...")
-    logger.info(Token.Keyword.B)
     logger.info("Done")
 
