@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" This module contains the ADeLe's tokens. 
+""" This module contains the ADeLe's tokens.
 
 Author:
     Francesco Racciatti
@@ -8,21 +8,23 @@ Copyright 2018 Francesco Racciatti
 
 """
 
-from enum import unique, Enum  
+from enum import unique, Enum
 
 
 @unique
-class Token(Enum):
-    """ The ADeLe's tokens. 
+class Keyword(Enum):
+    """ The ADeLe's keywords. 
     
-    This class provides the ADeLe's tokens and the related literal strings. 
+    This class provides the ADeLe's keywords and binds each keyword with the related 
+    token. Moreover, this class, ensures the uniqueness of both the keywords and the
+    tokens.
     """
     # Unscoped types
     BOOLEAN             = 'boolean'
-    CHAR                = 'char' 
+    CHAR                = 'char'
     INTEGER             = 'integer'
     FLOAT               = 'float'
-    STRING              = 'string'  
+    STRING              = 'string'
     # Scoped types, when the size does really matter
     UINT8               = 'uint8'
     UINT16              = 'uint16'
@@ -37,8 +39,8 @@ class Token(Enum):
     # Generic message
     MESSAGE             = 'message'
     # Boolean values
-    TRUE                = 'true'
     FALSE               = 'false'
+    TRUE                = 'true'
     # Actions
     ELEMENT_MISPLACE    = 'elementMisplace'
     ELEMENT_ROTATE      = 'elementRotate'
@@ -49,7 +51,7 @@ class Token(Enum):
     MESSAGE_WRITE       = 'messageWrite'
     MESSAGE_READ        = 'messageRead'
     MESSAGE_FORWARD     = 'messageForward' 
-    MESSAGE_INJECT      = 'messageInject' 
+    MESSAGE_INJECT      = 'messageInject'
     MESSAGE_CREATE      = 'messageCreate'
     MESSAGE_CLONE       = 'messageClone'
     MESSAGE_DROP        = 'messageDrop'
@@ -58,11 +60,11 @@ class Token(Enum):
     AT                  = 'at'
     FOREACH             = 'foreach'
     FROM                = 'from'
-    FOR                 = 'for'  
+    FOR                 = 'for'
     IF                  = 'if'
     ELSE                = 'else'
     # Containers
-    LIST                = 'list' 
+    LIST                = 'list'
     RANGE               = 'range'
     # Accessors
     IN                  = 'in'
@@ -73,12 +75,16 @@ class Token(Enum):
     END                 = 'END'
     TX                  = 'TX'
     RX                  = 'RX'
-    # Time 
+    # Time
     HOUR                = 'h'
     MINUTE              = 'min'
     SECOND              = 's'
     SECOND_MILLI        = 'ms'
     SECOND_MICRO        = 'us'
+    
+@unique
+class Punctuation(Enum):
+    """ The ADeLe's punctuation. """
     # Basic assignment operator
     ASSIGN              = r'='
     # Compound assignment operators
@@ -113,24 +119,24 @@ class Token(Enum):
     CURVY_L             = r'\{'
     CURVY_R             = r'\}'
     # Other punctuation
+    SEMICOLON           = r'\;'
     COMMA               = r'\,'
     COLON               = r'\:'
-    SEMICOLON           = r'\;'
 
 
-def unraw(token):
-    """ Removes undesired backslashes from raw strings. """
-    return token.replace("\\", "")
+def remove_backslashes(token):
+    """ Removes backslashes from the given token. """
+    return token.replace('\\', '')
 
 
-def get_list_token(cls):
-    """ Gets the list of the tokens. """
+def get_list_tokens(cls):
+    """ Gets the list of the tokens from the given class. """
     return [e.name for e in cls]
 
 
 def get_dict_keyword_to_token(cls):
     """ Gets the dictionary mapping the keywords onto the related tokens. """
-    dict = {}
+    d = {}
     for e in cls:
-        dict[e.value] = e.name
-    return dict
+        d[e.value] = e.name
+    return d
