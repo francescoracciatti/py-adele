@@ -13,7 +13,7 @@ import logging
 
 from ply import lex
 
-from tokens import Keyword, Punctuation, Literal 
+from tokens import Keyword, Punctuation, Literal
 
 
 logger = logging.getLogger(__name__)
@@ -23,7 +23,7 @@ tokens = Keyword.tokens() + Punctuation.tokens() + Literal.tokens()
 
 # The reserved keywords
 reserved = Keyword.reverse_map()
- 
+
 # Tokenizers for the puncutation
 t_ASSIGN        = Punctuation.ASSIGN.value
 t_ASSIGN_ADD    = Punctuation.ASSIGN_ADD.value

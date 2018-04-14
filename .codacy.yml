@@ -1,3 +1,6 @@
 ---
 exclude_paths:
   - 'test/**'
+  - 'src/__init__'
+  - 'src/parser/__init__'
+  - 'src/model/__init__'

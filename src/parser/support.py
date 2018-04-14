@@ -19,7 +19,7 @@ class Token(Enum):
     This class make it possible to map a token onto the related keyword,
     by ensuring the uniqueness of both the tokens and the keywords.
     """
-    
+
     @classmethod
     def tokens(cls):
         """ Gets the tokens of the current instance. """

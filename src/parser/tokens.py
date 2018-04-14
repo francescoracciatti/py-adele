@@ -76,7 +76,7 @@ class Keyword(Token):
     SECOND              = 's'
     SECOND_MILLI        = 'ms'
     SECOND_MICRO        = 'us'
- 
+
 
 class Punctuation(Token):
     """ The ADeLe's punctuation. """
