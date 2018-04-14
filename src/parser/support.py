@@ -8,7 +8,9 @@ Copyright 2018 Francesco Racciatti
 
 """
 
+
 from enum import unique, Enum
+
 
 @unique
 class Token(Enum):
@@ -17,30 +19,32 @@ class Token(Enum):
     This class make it possible to map a token onto the related keyword,
     by ensuring the uniqueness of both the tokens and the keywords.
     """
+    
+    @classmethod
+    def tokens(cls):
+        """ Gets the tokens of the current instance. """
+        return _get_tuple_names_from_enum(cls)
 
     @classmethod
-    def get_list_tokens(cls):
-        """ Gets the list of the tokens. """
-        return _get_list_names_from_enum(cls)
+    def keywords(cls):
+        """ Gets the keywords of the current instance. """
+        return _get_tuple_values_from_enum(cls)
 
     @classmethod
-    def get_list_keywords(cls):
-        """ Gets the list of the keywords. """
-        return _get_list_values_from_enum(cls)
-
-    @classmethod
-    def get_dict_keyword_to_token(cls):
-        """ Gets the dict mapping the (unique) keywords onto the related (unique) tokens. """
+    def reverse_map(cls):
+        """ Gets the reverse map of the current instance. """
         return _get_dict_value_to_name_from_enum(cls)
 
 
-def _get_list_names_from_enum(cls):
-    """ Gets the list of the names from the given Enum class. """
-    return [e.name for e in cls]
+def _get_tuple_names_from_enum(cls):
+    """ Gets the tuple of the names from the given Enum class. """
+    return tuple(e.name for e in cls)
 
-def _get_list_values_from_enum(cls):
-    """ Gets the list of the values from the given Enum class. """
-    return [e.value for e in cls]
+
+def _get_tuple_values_from_enum(cls):
+    """ Gets the tuple of the values from the given Enum class. """
+    return tuple(e.value for e in cls)
+
 
 def _get_dict_value_to_name_from_enum(cls):
     """
@@ -51,3 +55,4 @@ def _get_dict_value_to_name_from_enum(cls):
     for e in cls:
         d[e.value] = e.name
     return d
+

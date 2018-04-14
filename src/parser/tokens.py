@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" This module contains the ADeLe's tokens and related keywords.
+""" This module contains the ADeLe's tokens.
 
 Author:
     Francesco Racciatti
@@ -8,7 +8,8 @@ Copyright 2018 Francesco Racciatti
 
 """
 
-from .support import Token
+
+from support import Token
 
 
 class Keyword(Token):
@@ -75,7 +76,7 @@ class Keyword(Token):
     SECOND              = 's'
     SECOND_MILLI        = 'ms'
     SECOND_MICRO        = 'us'
-
+ 
 
 class Punctuation(Token):
     """ The ADeLe's punctuation. """
@@ -116,3 +117,12 @@ class Punctuation(Token):
     SEMICOLON           = r'\;'
     COMMA               = r'\,'
     COLON               = r'\:'
+
+
+class Literal(Token):
+    """ The supported literals. """
+    LITERAL_IDENTIFIER  = 'LITERAL_IDENTIFIER'
+    LITERAL_INTEGER     = 'LITERAL_INTEGER'
+    LITERAL_STRING      = 'LITERAL_STRING'
+    LITERAL_FLOAT       = 'LITERAL_FLOAT'
+    LITERAL_CHAR        = 'LITERAL_CHAR'

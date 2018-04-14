@@ -9,11 +9,15 @@ Copyright 2018 Francesco Racciatti
 
 """
 
+
 import unittest
 import sys
 
+
 sys.path.append('../')
-from src.parser.keyword import Keyword, Punctuation
+sys.path.append('../src/')
+sys.path.append('../src/parser/')
+from src.parser.tokens import Keyword, Punctuation
 
 
 class TestPyAdele(unittest.TestCase):
@@ -21,13 +25,13 @@ class TestPyAdele(unittest.TestCase):
 
     def test_token_uniqueness(self):
         """ Tests the uniqueness of all the tokens. """
-        intersection = set(Keyword.get_list_tokens()).intersection(set(Punctuation.get_list_tokens()))
+        intersection = set(Keyword.tokens()).intersection(set(Punctuation.tokens()))
         if any(intersection):
             self.fail("Duplicated token(s): " + str(intersection))
 
     def test_keyword_uniqueness(self):
         """ Tests the uniqueness of all the keywords. """
-        intersection = set(Keyword.get_list_keywords()).intersection(set(Punctuation.get_list_keywords()))
+        intersection = set(Keyword.keywords()).intersection(set(Punctuation.keywords()))
         if any(intersection):
             self.fail("Duplicated keywords(s): " + str(intersection))
 
