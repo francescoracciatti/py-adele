@@ -18,7 +18,7 @@ from src.parser.keyword import Keyword, Punctuation
 
 class TestPyAdele(unittest.TestCase):
     """ This class contains the entire set of tests of PyAdele. """
-    
+
     def test_token_uniqueness(self):
         """ Tests the uniqueness of all the tokens. """
         intersection = set(Keyword.get_list_tokens()).intersection(set(Punctuation.get_list_tokens()))
