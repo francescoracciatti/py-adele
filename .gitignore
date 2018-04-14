@@ -190,8 +190,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# Trace
+### Trace ###
 *.log
 
+### Shell-Script ###
+*.sh
 
 # End of https://www.gitignore.io/api/pydev,macos,python,eclipse
