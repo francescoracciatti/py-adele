@@ -8,7 +8,7 @@ Copyright 2018 Francesco Racciatti
 
 """
 
-from support import Token
+from .support import Token
 
 
 class Keyword(Token):
