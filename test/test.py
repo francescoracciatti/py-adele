@@ -16,6 +16,11 @@ class TestPyAdele(unittest.TestCase):
 
     def test_dummy(self):
         self.assertTrue(True)
+    
+    def test_token_uniqueness(self):
+            
+    
+    
 
 if __name__ == '__main__':
     unittest.main()
