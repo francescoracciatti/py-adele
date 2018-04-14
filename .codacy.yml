@@ -1,6 +1,6 @@
 ---
 exclude_paths:
   - 'test/**'
-  - 'src/__init__'
-  - 'src/parser/__init__'
-  - 'src/model/__init__'
+  - 'src/__init__.py'
+  - 'src/parser/__init__.py'
+  - 'src/model/__init__.py'

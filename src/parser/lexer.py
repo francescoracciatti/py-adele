@@ -55,13 +55,13 @@ t_CURVY_R       = Punctuation.CURVY_R.value
 t_COMMA         = Punctuation.COMMA.value
 t_COLON         = Punctuation.COLON.value
 t_SEMICOLON     = Punctuation.SEMICOLON.value
- 
+
 # Token parsing rule for chars
 def t_LITERAL_CHAR(t):
     r"\'.\'"
     t.value = t.value.replace("'", "")
     return t
- 
+
 # Token parsing rule for float numbers
 def t_LITERAL_FLOAT(t):
     r'-?\d+\.\d+'
@@ -71,7 +71,7 @@ def t_LITERAL_FLOAT(t):
         logger.critical("float number badly defined")
         raise
     return t
- 
+
 # Token parsing rule for signed integer numbers
 def t_LITERAL_INTEGER(t):
     r'-?\d+'
@@ -81,20 +81,20 @@ def t_LITERAL_INTEGER(t):
         logger.critical("integer number badly defined")
         raise
     return t
- 
+
 # Token parsing rule for strings
 def t_LITERAL_STRING(t):
     r'\"([^\\"]|(\\.))*\"'
     t.value = t.value.replace('\"', '')
     return t
- 
+
 # Token parsing rule for identifiers
 def t_LITERAL_IDENTIFIER(t):
     r'[a-zA-Z][a-zA-Z_0-9]*'
     # Checks if the identifier is a reserved keyword
     t.type = reserved.get(t.value, Literal.LITERAL_IDENTIFIER.value)
     return t
- 
+
 # Token parsing rule to ignore tab occurrences
 t_ignore = ' \t'
  
@@ -102,12 +102,12 @@ t_ignore = ' \t'
 def t_comment(t):
     r'\#.*'
     pass
- 
+
 # Token parsing rule to track line numbers
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
- 
+
 # Token parsing rule for wrong statement or characters
 def t_error(t):
     t.lexer.skip(1)
