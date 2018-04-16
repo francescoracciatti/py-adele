@@ -58,7 +58,7 @@ class Keyword(Lexeme):
     MESSAGE_CLONE       = 'messageClone'
     MESSAGE_DROP        = 'messageDrop'
     # Statements
-    MODEL               = 'model'
+    SCENARIO            = 'scenario'
     AT                  = 'at'
     FOREACH             = 'foreach'
     FROM                = 'from'
@@ -125,7 +125,7 @@ class Punctuation(Lexeme):
     COMMA               = r'\,'
     COLON               = r'\:'
 
-    
+
 class Literal(Lexeme):
     """ Supports the tokenization of literal values. """
     LITERAL_IDENTIFIER  = 'LITERAL_IDENTIFIER'
@@ -138,9 +138,9 @@ class Literal(Lexeme):
 # The tokens used by the tokenizer
 tokens = Keyword.tokens() + Punctuation.tokens() + Literal.tokens()
 
+
 # The reserved keywords
 reserved = Keyword.reverse_map()
-
 
 
 # Tokenizers for the puncutation

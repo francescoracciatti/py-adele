@@ -8,37 +8,50 @@ Copyright 2018 Francesco Racciatti
 
 """
 
-# The default units of measurement for the time, space and angle
-DEFAULT_UNIT_TIME = 'second'
-DEFAULT_UNIT_SPACE = 'meter'
-DEFAULT_UNIT_ANGLE = 'rad'
-
-# The current unit of measurement for the time, space and angle
-UNIT_TIME = DEFAULT_UNIT_TIME
-UNIT_SPACE = DEFAULT_UNIT_SPACE
-UNIT_ANGLE = DEFAULT_UNIT_ANGLE
+from enum import unique, Enum
+from types import DynamicClassAttribute
+from math import inf
 
 
-def setUnitTime(unit_time):
-    """ Sets the measurement unit for the time. """
-    UNIT_TIME = unit_time
+@unique
+class ISO(Enum):
+    """ ISO measure units. """    
+    TIME    = 's'
+    LENGTH  = 'm'
+    ANGLE   = 'rad'
+
+    @DynamicClassAttribute
+    def symbol(self):
+        """ The unit symbol. """
+        return self._value_
 
 
-def setUnitSpace(unit_space):
-    """ Sets the measurement unit for the space. """
-    UNIT_SPACE = unit_space
+# The start time
+ABSOLUTE_REFERENCE_TIME_START = 0.0
 
-
-def setUnitAngle(unit_angle):
-    """ Sets the measurement unit for the angle. """
-    UNIT_ANGLE = unit_angle
+# The end time
+ABSOLUTE_REFERENCE_TIME_END = inf
 
 
 class Configuration(object):
-    """ Models the current configuration. """
+    """ Models the configuration of the scenario. """
+
+    def __init__(self, 
+                 unit_time = ISO.TIME.symbol, 
+                 unit_length = ISO.LENGTH.symbol, 
+                 unit_angle = ISO.ANGLE.symbol, 
+                 time_start = ABSOLUTE_REFERENCE_TIME_START, 
+                 time_end = ABSOLUTE_REFERENCE_TIME_END):
+        self.unit_time = unit_time
+        self.unit_length = unit_length
+        self.unit_angle = unit_angle
+        self.time_start = time_start
+        self.time_end = time_end
+
+
+class Scenario(object):
+    """ Models the whole attack scenario. """
     
     def __init__(self):
-        self.unit_time = UNIT_TIME
-        self.unit_space = UNIT_SPACE
-        self.unit_angle = UNIT_ANGLE
+        self.configuration = None
 

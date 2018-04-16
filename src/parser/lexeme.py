@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" This module contains the facilities to support the definition 
+""" This module contains the facilities to support the definition
 of the lexemes.
 
 Author:
@@ -26,7 +26,7 @@ class Lexeme(Enum):
     def token(self):
         """ The token of the Lexeme member. """
         return self._name_
-    
+
     @DynamicClassAttribute
     def lexeme(self):
         """ The lexeme of the Lexeme member. """

@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+# This file contains the minimal parsable description of an attack scenario. 
+# 
+# This file is strictly coupled with the unit test suite. Do not edit.
+#
+# Author:
+#   Francesco Racciatti
+#
+# Copyright 2018 Francesco Racciatti
+#
+
+### This is a comment ### 
+
+# The entry point
+scenario
+{
+}  

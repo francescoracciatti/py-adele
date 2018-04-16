@@ -10,13 +10,13 @@ Copyright 2018 Francesco Racciatti
 """
 
 
-import unittest
 import sys
-
-
 sys.path.append('../')
 sys.path.append('../src/')
 sys.path.append('../src/parser/')
+
+import unittest
+
 from src.parser.lexer import Keyword, Punctuation, Literal
 
 
@@ -40,6 +40,17 @@ class TestPyAdele(unittest.TestCase):
             set(Literal.lexemes()) & set(Punctuation.lexemes()) )
         if any(intersection):
             self.fail("Duplicated keywords(s): " + str(intersection))
+
+    def test_minimal(self):
+        """ TODO TBI 
+        
+        To perform the test it is necessary to have:
+          + xml writer
+          + xml comparator
+          + xml comparison source
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()
