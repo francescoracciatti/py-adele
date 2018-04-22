@@ -49,7 +49,7 @@ class Keyword(Lexeme):
     # Configuration
     SET_UNIT_TIME       = 'setUnitTime'
     SET_UNIT_LENGTH     = 'setUnitLength'
-    SET_UNIT_ANGLE      = 'setUnitAngle' 
+    SET_UNIT_ANGLE      = 'setUnitAngle'
     SET_TIME_START      = 'setTimeStart'
     SET_TIME_END        = 'setUnitTime'
     # Actions

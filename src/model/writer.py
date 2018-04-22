@@ -17,7 +17,7 @@ class Writer(Enum):
     XML     = 'xml'
 
     @classmethod
-    def exist(cls, writer):
+    def exist(cls, writer: str) -> bool:
         """ Checks if the given writer exists. """
         if writer.lower() in tuple(e.value for e in cls):
             return True
