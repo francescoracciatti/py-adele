@@ -12,7 +12,7 @@ Copyright 2018 Francesco Racciatti
 
 from enum import unique, Enum
 from types import DynamicClassAttribute
-
+from typing import Tuple, Dict
 
 @unique
 class Lexeme(Enum):
@@ -23,48 +23,30 @@ class Lexeme(Enum):
     """
 
     @DynamicClassAttribute
-    def token(self):
+    def token(self) -> str:
         """ The token of the Lexeme member. """
-        return self._name_
+        return self.name
 
     @DynamicClassAttribute
-    def lexeme(self):
+    def lexeme(self) -> str:
         """ The lexeme of the Lexeme member. """
-        return self._value_
+        return self.value
 
     @classmethod
-    def tokens(cls):
-        """ Gets the tokens of Lexeme. """
-        return _get_tuple_names_from_enum(cls)
+    def tokens(cls) -> Tuple[str, ...]:
+        """ Gets the tuple containing the tokens of Lexeme. """
+        return tuple(e.name for e in cls)
 
     @classmethod
-    def lexemes(cls):
-        """ Gets the lexemes of Lexeme. """
-        return _get_tuple_values_from_enum(cls)
+    def lexemes(cls) -> Tuple[str, ...]:
+        """ Gets the tuple containing the lexemes of Lexeme. """
+        return tuple(e.value for e in cls)
 
     @classmethod
-    def reverse_map(cls):
+    def reverse_map(cls) -> Dict[str, str]:
         """ Gets the reverse map of Lexeme. """
-        return _get_dict_value_to_name_from_enum(cls)
-
-
-def _get_tuple_names_from_enum(cls):
-    """ Gets the tuple of the names from the given Enum instance. """
-    return tuple(e.name for e in cls)
-
-
-def _get_tuple_values_from_enum(cls):
-    """ Gets the tuple of the values from the given Enum instance. """
-    return tuple(e.value for e in cls)
-
-
-def _get_dict_value_to_name_from_enum(cls):
-    """
-    Gets the dictionary mapping the values onto the related names
-    from the given Enum instance.
-    """
-    d = {}
-    for e in cls:
-        d[e.value] = e.name
-    return d
+        d: Dict[str, str] = {}
+        for e in cls:
+            d[e.value] = e.name
+        return d
 

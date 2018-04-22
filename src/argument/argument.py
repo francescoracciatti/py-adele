@@ -58,7 +58,7 @@ class Option(Enum):
 
 class Argument(object):
     """ The arguments from the command line. """
-    
+
     def __init__(self, source, writer, output, force):
         self.source = source
         self.writer = writer
@@ -78,17 +78,17 @@ def get_command_line_arguments():
         'path/to/output',
         Option.FORCE.short)
     argparser = ArgumentParser(epilog=epilog)
-    argparser.add_argument(Option.SOURCE.short, 
+    argparser.add_argument(Option.SOURCE.short,
                            Option.SOURCE.long,
                            metavar=Option.SOURCE.metavar,
                            default='',
                            help="The path to the source file to be processed. Mandatory.")
-    argparser.add_argument(Option.WRITER.short, 
+    argparser.add_argument(Option.WRITER.short,
                            Option.WRITER.long,
                            metavar=Option.WRITER.metavar,
                            default='',
                            help="The writer of the output file. Mandatory.")
-    argparser.add_argument(Option.OUTPUT.short, 
+    argparser.add_argument(Option.OUTPUT.short,
                            Option.OUTPUT.long,
                            metavar=Option.OUTPUT.metavar,
                            default='',

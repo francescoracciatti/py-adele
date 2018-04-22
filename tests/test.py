@@ -41,6 +41,10 @@ class TestPyAdele(unittest.TestCase):
         if any(intersection):
             self.fail("Duplicated keywords(s): " + str(intersection))
 
+    def test_command_line_argument_parser(self):
+        """ Tests the command line argument parser. """
+        pass
+
     def test_minimal(self):
         """ TODO TBI 
         

@@ -14,14 +14,14 @@ import os
 import sys 
 sys.path.append('./src/')
 sys.path.append('./src/parser/')
-from argparse import ArgumentParser
-from enum import unique, Enum
-from types import DynamicClassAttribute
+#from argparse import ArgumentParser
+#from enum import unique, Enum
+#from types import DynamicClassAttribute
 
 import logging
 
 from parser.grammar import parser
-from argument.argument import Argument, get_command_line_arguments
+from argument.argument import get_command_line_arguments
 
 # TODO handle the version number 
 __version__ = '2.0.0'
@@ -31,7 +31,7 @@ __version__ = '2.0.0'
 LOG_LEVEL = logging.DEBUG
 log_path = ""
 log_name = "log"
-target = 'tests/sources/test-minimal.adele'
+target = 'tests/sources/test-complete.adele'
 
 
 # Creates a logger
@@ -56,34 +56,29 @@ logger.addHandler(file_handler)
 
 if __name__ == '__main__':
     logger.info("Py-ADeLe is running")
-    
+
     # Retrieves the command line arguments
     arguments = get_command_line_arguments()
-    
-    logger.info("{}, {}, {}, {}".format(
-        arguments.source,
-        arguments.writer,
-        arguments.output,
-        arguments.force))
     
     # Opens the source file
     with open(target, 'r') as f:
         logger.info("Target: {}".format(target))
         source = f.read()
     try:
-        # Parses the source file and builds the attack scenario 
+        # Parses the source file and builds the attack scenario
         logger.info("Parsing ...")
         scenario = parser.parse(source)
     except SyntaxError as e:
         logger.critical("Sintax error: " + str(e))
     except RuntimeError as e:
-        logger.critical("Parsing error: " + str(e)) 
+        logger.critical("Parsing error: " + str(e))
     except:
         logger.critical("Generic error: " + str(e))
         raise
     logger.info("Parsing done")
     
     # TODO Builds the bytecode
+    
     logger.info("Done")
 
 

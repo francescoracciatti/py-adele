@@ -36,11 +36,11 @@ ABSOLUTE_REFERENCE_TIME_END = inf
 class Configuration(object):
     """ Models the configuration of the scenario. """
 
-    def __init__(self, 
-                 unit_time = ISO.TIME.symbol, 
-                 unit_length = ISO.LENGTH.symbol, 
-                 unit_angle = ISO.ANGLE.symbol, 
-                 time_start = ABSOLUTE_REFERENCE_TIME_START, 
+    def __init__(self,
+                 unit_time = ISO.TIME.symbol,
+                 unit_length = ISO.LENGTH.symbol,
+                 unit_angle = ISO.ANGLE.symbol,
+                 time_start = ABSOLUTE_REFERENCE_TIME_START,
                  time_end = ABSOLUTE_REFERENCE_TIME_END):
         self.unit_time = unit_time
         self.unit_length = unit_length
@@ -51,7 +51,7 @@ class Configuration(object):
 
 class Scenario(object):
     """ Models the whole attack scenario. """
-    
-    def __init__(self):
-        self.configuration = None
+
+    def __init__(self, configuration = Configuration(), list_attack = []):
+        self.configuration = configuration
 
