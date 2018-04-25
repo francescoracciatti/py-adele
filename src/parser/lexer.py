@@ -10,7 +10,7 @@ Copyright 2018 Francesco Racciatti
 
 
 import logging
-from typing import Tuple, Dict, Any
+from typing import Tuple, Dict
 from mypy_extensions import NoReturn
 
 from ply import lex
@@ -153,7 +153,6 @@ reserved: Dict[str, str] = Keyword.reverse_map()
 
 
 # Tokenizers for the puncutation
-                    
 t_ASSIGN: str           = Punctuation.ASSIGN.lexeme
 t_ASSIGN_ADD: str       = Punctuation.ASSIGN_ADD.lexeme
 t_ASSIGN_SUB: str       = Punctuation.ASSIGN_SUB.lexeme

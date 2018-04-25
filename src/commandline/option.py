@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" The command line argument parsing facilities of Py-ADeLe.
+""" The command line argument parser of Py-ADeLe.
 
 Author:
     Francesco Racciatti
@@ -21,30 +21,13 @@ from argparse import ArgumentParser
 logger = logging.getLogger(__name__)
 
 
-class Error(Exception):
-    """Base class for exceptions in this module."""
-    pass
-
-class InputError(Error):
-    """Exception raised for errors in the input.
-
-    Attributes:
-        expression -- input expression in which the error occurred
-        message -- explanation of the error
-    """
-
-    def __init__(self, expression, message):
-        self.expression = expression
-        self.message = message
-
-
 @unique
 class Option(Enum):
     """ The command line options. """
-    SOURCE  = 's'
-    WRITER  = 'w'
-    OUTPUT  = 'o'
-    FORCE   = 'f'
+    SOURCE          = 's'
+    INTERPRETER     = 'i'
+    OUTPUT          = 'o'
+    FORCE           = 'f'
 
     @DynamicClassAttribute
     def short(self) -> str:
@@ -75,13 +58,13 @@ class Option(Enum):
 class Argument(object):
     """ The arguments from the command line. """
 
-    def __init__(self, 
-                 source: str = None, 
-                 writer: str = None, 
-                 output: str = None, 
+    def __init__(self,
+                 source: str = None,
+                 interpreter: str = None,
+                 output: str = None,
                  force: str = None) -> None:
         self.source: str = source
-        self.writer: str = writer
+        self.interpreter: str = interpreter
         self.output: str = output
         self.force: str = force
 
@@ -92,8 +75,8 @@ def get_command_line_arguments(args: List[str]) -> Argument:
     epilog = 'Usage: python pyadele.py {} {} {} {} [{} {}] [{}]'.format(
         Option.SOURCE.short,
         'paht/to/source',
-        Option.WRITER.short,
-        'output-writer',
+        Option.INTERPRETER.short,
+        'interpreter',
         Option.OUTPUT.short,
         'path/to/output',
         Option.FORCE.short)
@@ -103,11 +86,11 @@ def get_command_line_arguments(args: List[str]) -> Argument:
                            metavar=Option.SOURCE.metavar,
                            default='',
                            help="The path to the source file to be processed. Mandatory.")
-    argparser.add_argument(Option.WRITER.short,
-                           Option.WRITER.long,
-                           metavar=Option.WRITER.metavar,
+    argparser.add_argument(Option.INTERPRETER.short,
+                           Option.INTERPRETER.long,
+                           metavar=Option.INTERPRETER.metavar,
                            default='',
-                           help="The writer of the output file. Mandatory.")
+                           help="The interpreter of the parsing engine. Mandatory.")
     argparser.add_argument(Option.OUTPUT.short,
                            Option.OUTPUT.long,
                            metavar=Option.OUTPUT.metavar,
@@ -137,10 +120,10 @@ def get_command_line_arguments(args: List[str]) -> Argument:
         logger.critical(msg)
         argparser.error(msg)
 
-    # Validates the writer, which is mandatory
-    writer = arguments[Option.WRITER.option]
-    if not writer:
-        msg = "Writer is missing"
+    # The interpreter is mandatory
+    interpreter = arguments[Option.INTERPRETER.option]
+    if not interpreter:
+        msg = "Interpreter is missing"
         logger.critical(msg)
         argparser.error(msg)
 
@@ -149,11 +132,11 @@ def get_command_line_arguments(args: List[str]) -> Argument:
     if not output:
         output = '{}.{}'.format(
             os.path.splitext(source)[0],
-            writer)
+            interpreter)
         logger.info("Output filename is missing, using {}".format(output))
 
     # Gets the force flag
     force = arguments[Option.FORCE.option]
 
-    return Argument(source, writer, output, force)
+    return Argument(source, interpreter, output, force)
 

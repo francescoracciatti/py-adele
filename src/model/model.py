@@ -16,7 +16,7 @@ from math import inf
 
 @unique
 class ISO(Enum):
-    """ ISO measure units. """    
+    """ ISO measure units. """
     TIME: str       = 's'
     LENGTH: str     = 'm'
     ANGLE: str      = 'rad'
@@ -59,8 +59,8 @@ class Attack(object):
 class Scenario(object):
     """ Models the whole scenario compound statement. """
 
-    def __init__(self, 
-                 configuration: Configuration   = None, 
+    def __init__(self,
+                 configuration: Configuration   = None,
                  list_attack: List[Attack]      = None) -> None:
         self.configuration: Configuration = configuration
 

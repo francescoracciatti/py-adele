@@ -10,8 +10,7 @@ Copyright 2018 Francesco Racciatti
 """
 
 
-import os
-import sys 
+import sys
 sys.path.append('./src/')
 sys.path.append('./src/parser/')
 #from argparse import ArgumentParser
@@ -21,9 +20,9 @@ sys.path.append('./src/parser/')
 import logging
 
 from parser.grammar import parser
-from argument.argument import get_command_line_arguments
+from commandline.option import get_command_line_arguments
 
-# TODO handle the version number 
+# TODO handle the version number
 __version__ = '2.0.0'
 
 
@@ -78,7 +77,7 @@ if __name__ == '__main__':
     logger.info("Parsing done")
     
     # TODO Builds the bytecode
-    
+
     logger.info("Done")
 
 
