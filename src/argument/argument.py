@@ -8,19 +8,34 @@ Copyright 2018 Francesco Racciatti
 
 """
 
+
 import os
-from enum import unique, Enum
-from argparse import ArgumentParser
-from types import DynamicClassAttribute
-from typing import Tuple
 import logging
-
-
-from model.writer import Writer
+from enum import unique, Enum
+from types import DynamicClassAttribute
+from typing import Tuple, List
+from argparse import ArgumentParser
 
 
 # Creates a logger
 logger = logging.getLogger(__name__)
+
+
+class Error(Exception):
+    """Base class for exceptions in this module."""
+    pass
+
+class InputError(Error):
+    """Exception raised for errors in the input.
+
+    Attributes:
+        expression -- input expression in which the error occurred
+        message -- explanation of the error
+    """
+
+    def __init__(self, expression, message):
+        self.expression = expression
+        self.message = message
 
 
 @unique
@@ -71,7 +86,7 @@ class Argument(object):
         self.force: str = force
 
 
-def get_command_line_arguments() -> Argument:
+def get_command_line_arguments(args: List[str]) -> Argument:
     """ Gets the command line arguments. """
 
     epilog = 'Usage: python pyadele.py {} {} {} {} [{} {}] [{}]'.format(
@@ -106,7 +121,7 @@ def get_command_line_arguments() -> Argument:
                            help="[Optional] Forces the overwrite of the output file.")
 
     # Parses the arguments
-    arguments = argparser.parse_args().__dict__
+    arguments = argparser.parse_args(args).__dict__
 
     # Checks if the arguments exist
     for option in Option.options():
@@ -118,7 +133,7 @@ def get_command_line_arguments() -> Argument:
     # The source file is mandatory
     source = arguments[Option.SOURCE.option]
     if not source:
-        msg = "Source file is missing"
+        msg = "Source filename is missing"
         logger.critical(msg)
         argparser.error(msg)
 
@@ -126,10 +141,6 @@ def get_command_line_arguments() -> Argument:
     writer = arguments[Option.WRITER.option]
     if not writer:
         msg = "Writer is missing"
-        logger.critical(msg)
-        argparser.error(msg)
-    if not Writer.exist(writer):
-        msg = "Writer {} not recognized".format(writer)
         logger.critical(msg)
         argparser.error(msg)
 

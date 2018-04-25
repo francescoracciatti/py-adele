@@ -20,8 +20,8 @@ import unittest
 from src.parser.lexer import Keyword, Punctuation, Literal
 
 
-class TestPyAdele(unittest.TestCase):
-    """ This class contains the entire set of tests for PyAdele. """
+class TestLexer(unittest.TestCase):
+    """ Full test set for the Lexer of PyAdele. """
 
     def test_uniqueness_tokens(self):
         """ Tests the uniqueness of all the tokens. """
@@ -40,20 +40,6 @@ class TestPyAdele(unittest.TestCase):
             set(Literal.lexemes()) & set(Punctuation.lexemes()) )
         if any(intersection):
             self.fail("Duplicated keywords(s): " + str(intersection))
-
-    def test_command_line_argument_parser(self):
-        """ Tests the command line argument parser. """
-        pass
-
-    def test_minimal(self):
-        """ TODO TBI 
-        
-        To perform the test it is necessary to have:
-          + xml writer
-          + xml comparator
-          + xml comparison source
-        """
-        pass
 
 
 if __name__ == '__main__':

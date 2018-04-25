@@ -58,8 +58,8 @@ if __name__ == '__main__':
     logger.info("Py-ADeLe is running")
 
     # Retrieves the command line arguments
-    arguments = get_command_line_arguments()
-    
+    arguments = get_command_line_arguments(sys.argv[1:])
+
     # Opens the source file
     with open(target, 'r') as f:
         logger.info("Target: {}".format(target))

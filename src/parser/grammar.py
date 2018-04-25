@@ -9,8 +9,11 @@ Copyright (C) 2018
 """
 
 import logging
+from mypy_extensions import NoReturn
+from typing import Any
 
 from ply import yacc
+from ply.yacc import YaccProduction
 
 from lexer import *
 from model.model import Scenario, Configuration
@@ -21,33 +24,25 @@ logger = logging.getLogger(__name__)
 
 class Associativity(object):
     """ Operator associativity. """
-    LEFT    = 'left'
-    RIGHT   = 'right'
-
-
-# Parsing rules precedence and associativity
-precedence = (
-    (Associativity.LEFT, Punctuation.ADD.token, Punctuation.SUB.token),
-    (Associativity.LEFT, Punctuation.MUL.token, Punctuation.DIV.token),
-    (Associativity.LEFT, Punctuation.EXP.token)
-)
+    LEFT: str   = 'left'
+    RIGHT: str  = 'right'
 
 
 class Global(object):
     """ Contains the global data structures which support the parsing engine. """
     
     # The configuration of the scenario
-    configuration = Configuration()
+    configuration: Configuration = Configuration()
 
 
 # Handles syntax errors
-def p_error(p):
+def p_error(p: YaccProduction) -> NoReturn:
     raise RuntimeError("Wrong syntax for the token '{}' - line {}".format(
         str(p.value), p.lineno))
 
 
 # Handles empty productions
-def p_empty(p):
+def p_empty(p: YaccProduction) -> None:
     '''
     empty :
     '''
@@ -55,7 +50,7 @@ def p_empty(p):
 
 
 # Catches the scenario's compound statement, which is the entry point
-def p_compound_statement_scenario(p):
+def p_compound_statement_scenario(p: YaccProduction) -> Any:
     '''
     compound_statement_scenario : SCENARIO CURVY_L empty CURVY_R
     '''
