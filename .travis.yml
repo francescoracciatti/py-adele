@@ -13,4 +13,4 @@ matrix:
 
 install: "pip install -r requirements.txt"
 
-script: cd tests && python -m unittest test.py
+script: cd tests && python3 -m unittest -b -v test_lexer.py && python3 -m unittest -b -v test_command_line_parser.py
