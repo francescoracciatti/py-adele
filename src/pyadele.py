@@ -75,7 +75,7 @@ if __name__ == '__main__':
         logger.critical("Generic error: " + str(e))
         raise
     logger.info("Parsing done")
-    
+   
     # TODO Builds the bytecode
 
     logger.info("Done")
