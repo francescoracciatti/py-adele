@@ -23,6 +23,9 @@ from src.parser.lexer import Keyword, Punctuation, Literal
 class TestLexer(unittest.TestCase):
     """ Full test set for the Lexer of PyAdele. """
 
+    def setUp(self):
+        unittest.TestCase.setUp(self)
+
     def test_uniqueness_tokens(self):
         """ Tests the uniqueness of all the tokens. """
         intersection = set.union(
@@ -40,6 +43,9 @@ class TestLexer(unittest.TestCase):
             set(Literal.lexemes()) & set(Punctuation.lexemes()) )
         if any(intersection):
             self.fail("Duplicated keywords(s): " + str(intersection))
+
+    def tearDown(self):
+        unittest.TestCase.tearDown(self)
 
 
 if __name__ == '__main__':

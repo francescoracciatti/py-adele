@@ -23,6 +23,9 @@ from src.commandline.option import get_command_line_arguments
 class TestCommandLineParser(unittest.TestCase):
     """ Full test set for the command line parser of PyADeLe. """
 
+    def setUp(self):
+        unittest.TestCase.setUp(self)
+
     def test_all_arguments(self):
         """ Tests the correctness of the command line arguments parser
         by using the full arguments set.
@@ -63,6 +66,9 @@ class TestCommandLineParser(unittest.TestCase):
         with self.assertRaises(SystemExit) as e:
             get_command_line_arguments(cmd)
         self.assertEqual(e.exception.code, 2)
+
+    def tearDown(self):
+        unittest.TestCase.tearDown(self)
 
 
 if __name__ == '__main__':
