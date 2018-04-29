@@ -10,50 +10,40 @@ Copyright 2018 Francesco Racciatti
 """
 
 
+import os
 import sys
 sys.path.append('./src/')
 sys.path.append('./src/model/')
 sys.path.append('./src/parser/')
 sys.path.append('./src/shell/')
 import logging
+import logging.config
+
+import json
 
 from parser.grammar import parser
 from shell.options import get_command_line_arguments
 from shell.service import validate_argument
 
 
-# TODO handle the version number
-__version__ = '2.0.0'
+# Logger configuration file
+loggerconfig = 'src/log/logger.json'
 
-
-# TODO argparse
-LOG_LEVEL = logging.DEBUG
-log_path = ""
-log_name = "log"
-
-
-# Creates a logger
+# Gets the logger
 logger = logging.getLogger(__name__)
-logger.setLevel(LOG_LEVEL)
-
-# Creates a formatter
-formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s - %(message)s')
-
-# Creates a console handler
-console_handler = logging.StreamHandler()
-console_handler.setLevel(LOG_LEVEL)
-console_handler.setFormatter(formatter)
-logger.addHandler(console_handler)
-
-# Creates a file handler
-file_handler = logging.FileHandler(log_path + log_name + '.log', mode='a', encoding='utf-8')
-file_handler.setLevel(LOG_LEVEL)
-file_handler.setFormatter(formatter)
-logger.addHandler(file_handler)
 
 
 if __name__ == '__main__':
+    if os.path.exists(loggerconfig):
+        with open(loggerconfig, 'rt') as logger_config_file:
+            config = json.load(logger_config_file)
+        logging.config.dictConfig(config)
+    else:
+        print("Cannot find the logger configuration file, using default config")
+        logging.basicConfig(level=logging.INFO)
+    
     logger.info("Py-ADeLe is running")
+    
     try:
         # Retrieves the command line arguments
         argument = get_command_line_arguments(sys.argv[1:])
@@ -62,24 +52,28 @@ if __name__ == '__main__':
         # Validates the arguments
         source, output = validate_argument(argument)
 
-        # TODO remove
-        # Bypass the command line call
+        # TODO remove, it bypasses the command line call
         source = 'tests/source/test-complete.adele'
     
         # Opens the source file
-        with open(source, 'r') as f:
-            code = f.read()
+        with open(source, 'r') as filesource:
+            sourcecode = filesource.read()
         
         # Parses the source file and builds the attack scenario
         logger.info("Parsing ...")
-        scenario = parser.parse(code)
+        scenario = parser.parse(sourcecode)
         logger.info("Parsing done")
       
-      
         # Interprets and writes the attack scenario
-    
+        # TODO remove, it stubs the interpreter
+        outputcode = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
+        
+        # Writes the output file
+        with open(output, 'w') as fileoutput:
+            fileoutput.write(outputcode)
+
         logger.info("Done")
     except Exception as e:
-        logger.critical(e)
+        logger.critical(e, exc_info=True)
         raise
 

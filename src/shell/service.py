@@ -10,6 +10,7 @@ Copyright 2018 Francesco Racciatti
 
 
 import os
+import sys
 import logging
 from enum import unique, IntEnum
 from typing import Tuple
@@ -79,13 +80,16 @@ def validate_argument(argument: Argument) -> Tuple[str, str]:
             if argument.force is False:
                 logger.info("The output file '{}' already exists, overwrite?".format(argument.output))
                 overwrite = str()
+                input_msg = '[{}/{}]'.format(Choose.YES, Choose.NO)
                 while overwrite.lower() not in (Choose.YES.lower(), Choose.NO.lower()):
-                    overwrite = input('[{}/{}]'.format(Choose.YES, Choose.NO))
+                    overwrite = input(input_msg)
+                    logger.info("{} > {}".format(input_msg, overwrite))
                 if overwrite.lower() == Choose.NO.lower():
-                    logger.info("It was choosen: no. Will not proceed.")
+                    logger.info("Cannot overwrite the output file, will not proceed.")
                     sys.exit(0)
-            else:
                 logger.info("The file '{}' will be overwritten".format(argument.output))
+            else:
+                logger.info("The file '{}' will be overwritten (force overwrite)".format(argument.output))
         else:
             raise ValidationError("The (output) path '{}' does not refer a file".format(argument.output),
                                   ValidationError.Code.NOT_FILE)
