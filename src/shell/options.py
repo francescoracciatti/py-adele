@@ -9,7 +9,6 @@ Copyright 2018 Francesco Racciatti
 """
 
 
-import os
 import logging
 from enum import unique, Enum
 from types import DynamicClassAttribute
@@ -69,10 +68,10 @@ class Argument(object):
         self.force: str = force
 
     def __str__(self):
-        str = '{}: '.format(self.__class__.__name__)
+        s = '{}: '.format(self.__class__.__name__)
         for k in self.__dict__.keys():
-           str += '[{}: {}] '.format(k, self.__dict__[k]) 
-        return str
+           s += '[{}: {}] '.format(k, self.__dict__[k])
+        return s
 
 
 def get_command_line_arguments(args: List[str]) -> Argument:

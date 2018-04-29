@@ -9,9 +9,8 @@ Copyright 2018 Francesco Racciatti
 
 """
 
-import os
+
 import sys
-from enum import unique
 sys.path.append('./src/')
 sys.path.append('./src/model/')
 sys.path.append('./src/parser/')
@@ -19,8 +18,9 @@ sys.path.append('./src/shell/')
 import logging
 
 from parser.grammar import parser
-from shell.options import get_command_line_arguments, Argument
+from shell.options import get_command_line_arguments
 from shell.service import validate_argument
+
 
 # TODO handle the version number
 __version__ = '2.0.0'
@@ -58,7 +58,7 @@ if __name__ == '__main__':
         # Retrieves the command line arguments
         argument = get_command_line_arguments(sys.argv[1:])
         logger.info(argument)
-    
+
         # Validates the arguments
         source, output = validate_argument(argument)
     

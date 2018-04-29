@@ -22,6 +22,7 @@ import unittest
 from src.shell.options import Argument
 from src.shell.service import ValidationError, validate_argument
 
+
 class TestValidateArgument(unittest.TestCase):
     """ Full test set for the validate argument function of PyADeLe. """
 

@@ -39,10 +39,10 @@ class ValidationError(Exception):
         self.code : int = code
 
     def __str__(self) -> str:
-        str = '{}: '.format(self.__class__.__name__)
+        s = '{}: '.format(self.__class__.__name__)
         for k in self.__dict__.keys():
-           str += '[{}: {}] '.format(k, self.__dict__[k])
-        return str
+           s += '[{}: {}] '.format(k, self.__dict__[k])
+        return s
 
 
 class Choose(object):

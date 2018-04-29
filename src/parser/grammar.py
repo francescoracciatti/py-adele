@@ -30,7 +30,7 @@ class Associativity(object):
 
 class Global(object):
     """ Contains the global data structures which support the parsing engine. """
-    
+
     # The configuration of the scenario
     configuration: Configuration = Configuration()
 
