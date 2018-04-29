@@ -13,7 +13,9 @@ Copyright 2018 Francesco Racciatti
 import sys
 sys.path.append('../')
 sys.path.append('../src/')
+sys.path.append('../src/model/')
 sys.path.append('../src/parser/')
+sys.path.append('../src/shell/')
 
 import unittest
 
@@ -26,7 +28,7 @@ class TestLexer(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
 
-    def test_uniqueness_tokens(self):
+    def test_lexer_ensure_uniqueness_tokens(self):
         """ Tests the uniqueness of all the tokens. """
         intersection = set.union(
             set(Keyword.tokens()) & set(Punctuation.tokens()),
@@ -35,7 +37,7 @@ class TestLexer(unittest.TestCase):
         if any(intersection):
             self.fail("Duplicated token(s): " + str(intersection))
 
-    def test_uniqueness_lexemes(self):
+    def test_lexer_ensure_uniqueness_lexemes(self):
         """ Tests the uniqueness of all the lexemes. """
         intersection = set.union(
             set(Keyword.lexemes()) & set(Punctuation.lexemes()),

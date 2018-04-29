@@ -9,18 +9,18 @@ Copyright 2018 Francesco Racciatti
 
 """
 
-
+import os
 import sys
+from enum import unique
 sys.path.append('./src/')
+sys.path.append('./src/model/')
 sys.path.append('./src/parser/')
-#from argparse import ArgumentParser
-#from enum import unique, Enum
-#from types import DynamicClassAttribute
-
+sys.path.append('./src/shell/')
 import logging
 
 from parser.grammar import parser
-from commandline.option import get_command_line_arguments
+from shell.options import get_command_line_arguments, Argument
+from shell.service import validate_argument
 
 # TODO handle the version number
 __version__ = '2.0.0'
@@ -30,7 +30,6 @@ __version__ = '2.0.0'
 LOG_LEVEL = logging.DEBUG
 log_path = ""
 log_name = "log"
-target = 'tests/sources/test-complete.adele'
 
 
 # Creates a logger
@@ -55,30 +54,32 @@ logger.addHandler(file_handler)
 
 if __name__ == '__main__':
     logger.info("Py-ADeLe is running")
-
-    # Retrieves the command line arguments
-    arguments = get_command_line_arguments(sys.argv[1:])
-
-    # Opens the source file
-    with open(target, 'r') as f:
-        logger.info("Target: {}".format(target))
-        source = f.read()
     try:
+        # Retrieves the command line arguments
+        argument = get_command_line_arguments(sys.argv[1:])
+        logger.info(argument)
+    
+        # Validates the arguments
+        source, output = validate_argument(argument)
+    
+        # TODO remove
+        # Bypass the command line call
+        source = 'tests/source/test-complete.adele'
+    
+        # Opens the source file
+        with open(source, 'r') as f:
+            code = f.read()
+        
         # Parses the source file and builds the attack scenario
         logger.info("Parsing ...")
-        scenario = parser.parse(source)
-    except SyntaxError as e:
-        logger.critical("Sintax error: " + str(e))
-    except RuntimeError as e:
-        logger.critical("Parsing error: " + str(e))
-    except:
-        logger.critical("Generic error: " + str(e))
+        scenario = parser.parse(code)
+        logger.info("Parsing done")
+      
+      
+        # Interprets and writes the attack scenario
+    
+        logger.info("Done")
+    except Exception as e:
+        logger.critical(e)
         raise
-    logger.info("Parsing done")
-   
-    # TODO Builds the bytecode
-
-    logger.info("Done")
-
-
 

@@ -56,7 +56,7 @@ class Option(Enum):
 
 
 class Argument(object):
-    """ The arguments from the command line. """
+    """ Wraps the full set of arguments passed by the command line. """
 
     def __init__(self,
                  source: str = None,
@@ -68,9 +68,15 @@ class Argument(object):
         self.output: str = output
         self.force: str = force
 
+    def __str__(self):
+        str = '{}: '.format(self.__class__.__name__)
+        for k in self.__dict__.keys():
+           str += '[{}: {}] '.format(k, self.__dict__[k]) 
+        return str
+
 
 def get_command_line_arguments(args: List[str]) -> Argument:
-    """ Gets the command line arguments. """
+    """ Parses and returns the command line arguments. """
 
     epilog = 'Usage: python pyadele.py {} {} {} {} [{} {}] [{}]'.format(
         Option.SOURCE.short,
@@ -85,12 +91,12 @@ def get_command_line_arguments(args: List[str]) -> Argument:
                            Option.SOURCE.long,
                            metavar=Option.SOURCE.metavar,
                            default='',
-                           help="The path to the source file to be processed. Mandatory.")
+                           help="The path to the source file to be processed. It is Mandatory.")
     argparser.add_argument(Option.INTERPRETER.short,
                            Option.INTERPRETER.long,
                            metavar=Option.INTERPRETER.metavar,
                            default='',
-                           help="The interpreter of the parsing engine. Mandatory.")
+                           help="The interpreter of the parsing engine. It is Mandatory.")
     argparser.add_argument(Option.OUTPUT.short,
                            Option.OUTPUT.long,
                            metavar=Option.OUTPUT.metavar,
@@ -113,29 +119,24 @@ def get_command_line_arguments(args: List[str]) -> Argument:
             logger.critical(msg)
             argparser.error(msg)
 
-    # The source file is mandatory
+    # The (path to the) source file is mandatory
     source = arguments[Option.SOURCE.option]
     if not source:
-        msg = "Source filename is missing"
+        msg = "The (path to the) source file is missing"
         logger.critical(msg)
         argparser.error(msg)
 
     # The interpreter is mandatory
     interpreter = arguments[Option.INTERPRETER.option]
     if not interpreter:
-        msg = "Interpreter is missing"
+        msg = "The interpreter is missing ()"
         logger.critical(msg)
         argparser.error(msg)
 
-    # Buils the output filename if it is missing
+    # The (path to the) output file is not mandatory
     output = arguments[Option.OUTPUT.option]
-    if not output:
-        output = '{}.{}'.format(
-            os.path.splitext(source)[0],
-            interpreter)
-        logger.info("Output filename is missing, using {}".format(output))
 
-    # Gets the force flag
+    # The force overwrite flag is not mandatory
     force = arguments[Option.FORCE.option]
 
     return Argument(source, interpreter, output, force)
