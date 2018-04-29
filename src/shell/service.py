@@ -52,7 +52,7 @@ class Choose(object):
 
 
 def validate_argument(argument: Argument) -> Tuple[str, str]:
-    """ Validates the given arguments and returns the paths to the 
+    """ Validates the given arguments and returns the paths to the
     source file and output file.
     """
     # Checks if the source file exists
@@ -78,7 +78,7 @@ def validate_argument(argument: Argument) -> Tuple[str, str]:
         if os.path.isfile(argument.output):
             if argument.force is False:
                 logger.info("The output file '{}' already exists, overwrite?".format(argument.output))
-                overwrite
+                overwrite = str()
                 while overwrite.lower() not in (Choose.YES.lower(), Choose.NO.lower()):
                     overwrite = input('[{}/{}]'.format(Choose.YES, Choose.NO))
                 if overwrite.lower() == Choose.NO.lower():

@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
         # Validates the arguments
         source, output = validate_argument(argument)
-    
+
         # TODO remove
         # Bypass the command line call
         source = 'tests/source/test-complete.adele'
