@@ -41,7 +41,7 @@ if __name__ == '__main__':
     else:
         print("Cannot find the logger configuration file, using default config")
         logging.basicConfig(level=logging.INFO)
-    
+
     logger.info("Py-ADeLe is running")
     
     try:

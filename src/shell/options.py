@@ -111,13 +111,6 @@ def get_command_line_arguments(args: List[str]) -> Argument:
     # Parses the arguments
     arguments = argparser.parse_args(args).__dict__
 
-    # Checks if the arguments exist
-    for option in Option.options():
-        if arguments.get(option, None) is None:
-            msg = "Cannot recognize the argument for the option {}".format(option)
-            logger.critical(msg)
-            argparser.error(msg)
-
     # The (path to the) source file is mandatory
     source = arguments[Option.SOURCE.option]
     if not source:

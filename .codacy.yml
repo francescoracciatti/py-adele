@@ -2,5 +2,7 @@
 exclude_paths:
   - 'tests/**'
   - 'src/__init__.py'
-  - 'src/parser/__init__.py'
+  - 'src/log/'  
   - 'src/model/__init__.py'
+  - 'src/parser/__init__.py'
+  - 'src/shell/__init__.py'
