@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" The utilities of Py-ADeLe.
+""" The service module of Py-ADeLe.
 
 Author:
     Francesco Racciatti
@@ -17,6 +17,7 @@ from typing import Tuple
 
 from options import Argument
 from model.interpreter import Interpreter
+from util.utils import baserepr, basestr
 
 
 # Creates the logger
@@ -29,9 +30,9 @@ class ValidationError(Exception):
     @unique
     class Code(IntEnum):
         """ The error codes. """
-        NOT_EXIST       = 1
-        NOT_FILE        = 2
-        NOT_SUPPORTED   = 3
+        NOT_EXIST = 1
+        NOT_FILE = 2
+        NOT_SUPPORTED = 3
 
 
     def __init__(self, message: str, code: int = None) -> None:
@@ -39,11 +40,11 @@ class ValidationError(Exception):
         self.message : str = message
         self.code : int = code
 
-    def __str__(self) -> str:
-        s = '{}: '.format(self.__class__.__name__)
-        for k in self.__dict__.keys():
-           s += '[{}: {}] '.format(k, self.__dict__[k])
-        return s
+    def __str__(self):
+        return basestr(self)
+    
+    def __repr__(self):
+        return baserepr(self)
 
 
 class Choose(object):
@@ -94,5 +95,5 @@ def validate_argument(argument: Argument) -> Tuple[str, str]:
             raise ValidationError("The (output) path '{}' does not refer a file".format(argument.output),
                                   ValidationError.Code.NOT_FILE)
 
-    return [argument.source, argument.output]
+    return [argument.source, argument.output, argument.interpreter]
 

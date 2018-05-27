@@ -15,6 +15,8 @@ from types import DynamicClassAttribute
 from typing import Tuple, List
 from argparse import ArgumentParser
 
+from util.utils import baserepr, basestr
+
 
 # Creates a logger
 logger = logging.getLogger(__name__)
@@ -23,10 +25,10 @@ logger = logging.getLogger(__name__)
 @unique
 class Option(Enum):
     """ The command line options. """
-    SOURCE          = 's'
-    INTERPRETER     = 'i'
-    OUTPUT          = 'o'
-    FORCE           = 'f'
+    SOURCE = 's'
+    INTERPRETER = 'i'
+    OUTPUT = 'o'
+    FORCE = 'f'
 
     @DynamicClassAttribute
     def short(self) -> str:
@@ -68,10 +70,10 @@ class Argument(object):
         self.force: str = force
 
     def __str__(self):
-        s = '{}: '.format(self.__class__.__name__)
-        for k in self.__dict__.keys():
-           s += '[{}: {}] '.format(k, self.__dict__[k])
-        return s
+        return basestr(self)
+    
+    def __repr__(self):
+        return baserepr(self)
 
 
 def get_command_line_arguments(args: List[str]) -> Argument:

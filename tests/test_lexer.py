@@ -16,6 +16,7 @@ sys.path.append('../src/')
 sys.path.append('../src/model/')
 sys.path.append('../src/parser/')
 sys.path.append('../src/shell/')
+sys.path.append('../src/util/')
 
 import unittest
 

@@ -51,7 +51,6 @@ class Keyword(Lexeme):
     SET_UNIT_LENGTH     = 'setUnitLength'
     SET_UNIT_ANGLE      = 'setUnitAngle'
     SET_TIME_START      = 'setTimeStart'
-    SET_TIME_END        = 'setUnitTime'
     # Actions
     ELEMENT_MISPLACE    = 'elementMisplace'
     ELEMENT_ROTATE      = 'elementRotate'
@@ -66,7 +65,9 @@ class Keyword(Lexeme):
     MESSAGE_CREATE      = 'messageCreate'
     MESSAGE_CLONE       = 'messageClone'
     MESSAGE_DROP        = 'messageDrop'
-    # Statements
+    # Compound Statements
+    CONFIGURATION       = 'configuration'
+    ATTACK              = 'attack'
     SCENARIO            = 'scenario'
     AT                  = 'at'
     FOREACH             = 'foreach'
@@ -137,11 +138,11 @@ class Punctuation(Lexeme):
 
 class Literal(Lexeme):
     """ Supports the tokenization of literal values. """
-    LITERAL_IDENTIFIER  = 'LITERAL_IDENTIFIER'
-    LITERAL_INTEGER     = 'LITERAL_INTEGER'
-    LITERAL_STRING      = 'LITERAL_STRING'
-    LITERAL_FLOAT       = 'LITERAL_FLOAT'
-    LITERAL_CHAR        = 'LITERAL_CHAR'
+    LITERAL_IDENTIFIER = 'LITERAL_IDENTIFIER'
+    LITERAL_INTEGER = 'LITERAL_INTEGER'
+    LITERAL_STRING = 'LITERAL_STRING'
+    LITERAL_FLOAT = 'LITERAL_FLOAT'
+    LITERAL_CHAR = 'LITERAL_CHAR'
 
 
 # The tokens used by the tokenizer

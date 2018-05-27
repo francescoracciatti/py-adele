@@ -6,3 +6,4 @@ exclude_paths:
   - 'src/model/__init__.py'
   - 'src/parser/__init__.py'
   - 'src/shell/__init__.py'
+  - 'src/util/__init__.py'

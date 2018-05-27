@@ -16,6 +16,7 @@ sys.path.append('./src/')
 sys.path.append('./src/model/')
 sys.path.append('./src/parser/')
 sys.path.append('./src/shell/')
+sys.path.append('./src/util/')
 import logging
 import logging.config
 
@@ -24,7 +25,7 @@ import json
 from parser.grammar import parser
 from shell.options import get_command_line_arguments
 from shell.service import validate_argument
-
+from model.interpreter import Interpreter
 
 # Logger configuration file
 loggerconfig = 'src/log/logger.json'
@@ -50,11 +51,8 @@ if __name__ == '__main__':
         logger.info(argument)
 
         # Validates the arguments
-        source, output = validate_argument(argument)
+        source, output, interpreter = validate_argument(argument)
 
-        # TODO remove, it bypasses the command line call
-        source = 'tests/source/test-complete.adele'
-    
         # Opens the source file
         with open(source, 'r') as filesource:
             sourcecode = filesource.read()
@@ -62,11 +60,13 @@ if __name__ == '__main__':
         # Parses the source file and builds the attack scenario
         logger.info("Parsing ...")
         scenario = parser.parse(sourcecode)
-        logger.info("Parsing done")
+        logger.info("Done")
       
         # Interprets and writes the attack scenario
-        # TODO remove, it stubs the interpreter
-        outputcode = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
+        logger.info("Interpreting ...")
+        outputcode = Interpreter.interpret(scenario, interpreter)
+        logger.info("Done")
+        
         
         # Writes the output file
         with open(output, 'w') as fileoutput:
@@ -75,5 +75,5 @@ if __name__ == '__main__':
         logger.info("Done")
     except Exception as e:
         logger.critical(e, exc_info=True)
-        raise
+        sys.exit(1)
 

@@ -11,7 +11,40 @@
 
 ### This is a comment ### 
 
-# The entry point
+# The entry point
 scenario
 {
-}  
+	# Configures the scenario
+	configuration
+	{
+		# Sets the measurement unit for the time
+		setUnitTime("s");
+		# Can overwrite
+		setUnitTime("ms");
+		# Handles a number of semicolons
+		setUnitTime("s");;;;;
+		
+		# Sets the measurement unit for the length
+		setUnitLength("m");
+		# Can overwrite
+		setUnitLength("mm");
+		# Handles a number of semicolons
+		setUnitLength("m");;;;;
+		
+		# Sets the measurement unit for the angle
+		setUnitAngle("rad");
+		# Can overwrite
+		setUnitAngle("deg");
+		# Handles a number of semicolons
+		setUnitAngle("rad");;;;;
+		
+		# Sets the relative start time
+		setTimeStart(0.0);
+		# Can overwrite
+		setTimeStart(1.0);
+		# Handles also integers
+		setTimeStart(1);
+		# Handles a number of semicolons
+		setTimeStart(0.0);;;;;
+	}
+}
