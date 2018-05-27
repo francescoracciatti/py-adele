@@ -12,7 +12,6 @@ Copyright 2018 Francesco Racciatti
 from enum import unique, Enum
 from types import DynamicClassAttribute
 from typing import List, Any
-from builtins import type
 
 from util.utils import baserepr, basestr
 
@@ -33,12 +32,12 @@ class CompoundStatement(object):
 
 
 class Literal(Container):
-    """ Models a literal. 
-    
+    """ Models a literal.
+
     Literals contain literal values.
     """
-    
-    # The prefix to build the identifier of literals 
+ 
+    # The prefix to build the identifier of literals
     PREFIX: str = '_'
     
     def __init__(self, type: str, value: str) -> None:
@@ -48,18 +47,18 @@ class Literal(Container):
 
     def __str__(self):
         return basestr(self)
-    
+
     def __repr__(self):
         return baserepr(self)
 
 
 class Variable(Container):
-    """ Models a variable. 
-    
-    Variables contain references (throug identifiers) to other variables or literals, 
+    """ Models a variable.
+
+    Variables contain references (throug identifiers) to other variables or literals,
     does not contain literal values.
     """
-    
+
     def __init__(self, identifier: str, type: str, reference: str) -> None:
         self.identifier: str = identifier
         self.type: str = type
@@ -67,7 +66,7 @@ class Variable(Container):
 
     def __str__(self):
         return basestr(self)
-    
+
     def __repr__(self):
         return baserepr(self)
 
@@ -90,85 +89,85 @@ class Configuration(CompoundStatement):
 
     def __init__(self, actions: List[Any]) -> None:
         self.actions: List[Any] = actions
-        
+
     def __str__(self):
         return basestr(self)
-    
+
     def __repr__(self):
         return baserepr(self)
 
 
 class SetUnitTime(SimpleStatement):
     """ Models the action 'setUnitTime'. """
-    
+
     def __init__(self, reference: str) -> None:
         self.reference: str = reference
 
     def __str__(self):
         return basestr(self)
-    
+
     def __repr__(self):
         return baserepr(self)
 
 
 class SetUnitLength(SimpleStatement):
     """ Models the action 'setUnitLength'. """
-    
+
     def __init__(self, reference: str) -> None:
         self.reference: str = reference
 
     def __str__(self):
         return basestr(self)
-    
+
     def __repr__(self):
         return baserepr(self)
 
 
 class SetUnitAngle(SimpleStatement):
     """ Models the action 'setUnitAngle'. """
-    
+
     def __init__(self, reference: str) -> None:
         self.reference: str = reference
 
     def __str__(self):
         return basestr(self)
-    
+
     def __repr__(self):
         return baserepr(self)
 
 
 class SetTimeStart(SimpleStatement):
     """ Models the action 'setTimeStart'. """
-    
+
     def __init__(self, reference: str) -> None:
         self.reference: str = reference
 
     def __str__(self):
         return basestr(self)
-    
+
     def __repr__(self):
         return baserepr(self)
 
 
 class Attack(CompoundStatement):
     """ Models the attack compound statement. """
-    
+
     # TODO To be implemented, this is a stub
-    
+
     def __str__(self):
         return basestr(self)
-    
+
     def __repr__(self):
         return baserepr(self)
 
 
 class Scenario(CompoundStatement):
-    """ Models the whole scenario compound statement. 
-    
-    It contains the configuration and the list of the attacks. 
+    """ Models the whole scenario compound statement.
+
+    It contains the configuration and the list of the attacks.
     """
 
-    # TODO To be developed, this is a stub        
+    # TODO To be developed, this is a stub
 
     def __init__(self,
                  configuration: Configuration = None,
@@ -178,7 +177,6 @@ class Scenario(CompoundStatement):
 
     def __str__(self):
         return basestr(self)
-    
+
     def __repr__(self):
         return baserepr(self)
-

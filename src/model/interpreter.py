@@ -14,7 +14,6 @@ from typing import Any
 
 from util.utils import baserepr, basestr
 from oom import *
-from pycodestyle import indentation
 
 
 logger = logging.getLogger(__name__)
@@ -54,16 +53,16 @@ class InterpretationError(Exception):
 
     def __str__(self):
         return basestr(self)
-    
+
     def __repr__(self):
         return baserepr(self)
 
 
 class Interpreter(object):
-    """ The interpret that builds the representation of the attack scenario. """ 
-    
+    """ The interpret that builds the representation of the attack scenario. """
+
     @unique
-    class Type(Enum): 
+    class Type(Enum):
         XML = 'xml'
 #       JSON = 'json'
 #       YAML = 'yaml'
@@ -85,7 +84,7 @@ class Interpreter(object):
 #        if type.lower() == cls.Type.YAML.value.lower():
 #            return interpret_yaml(scenario)
         else:
-            raise InterpretationError("{} not supported".format(type), 
+            raise InterpretationError("{} not supported".format(type),
                                       InterpretationError.Code.NOT_SUPPORTED)
 
 
@@ -147,7 +146,7 @@ def interpret_xml(statement: Any, indentation: int = 0, index: int = None) -> st
                     xml += interpret_xml(item, indentation + 2, index)
             elif isinstance(statement.__dict__[key], dict):
                 logger.debug("type: dict")
-                xml += '{}<{} {}="{}" {}="{}">\n'.format(
+                xml += '{}<{} {}="{}" {}="{}" {}="{}">\n'.format(
                     INDENT_SPACE * (indentation + 1),
                     key,
                     PROPERTY_ENTITY,
