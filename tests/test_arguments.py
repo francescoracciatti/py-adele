@@ -46,7 +46,7 @@ class TestArguments(unittest.TestCase):
 
     def test_validation_when_interpreter_not_supported_then_raise_validation_exception(self):
         """ Tests the validation function when the interpreter is not supported. """
-        argument = Argument('source/empty-absolute.adele', 'unexisting-interpreter', '', False)
+        argument = Argument('source/empty.adele', 'unexisting-interpreter', '', False)
         with self.assertRaises(ValidationError) as e:
             validate_argument(argument)
         self.assertEqual(e.exception.code, ValidationError.Code.NOT_SUPPORTED)
@@ -54,7 +54,7 @@ class TestArguments(unittest.TestCase):
     def test_validation_when_output_file_is_not_a_file_without_force_overwrite_then_raise_validation_exception(self):
         """ Tests the validation function when the output path does not refer a file,
         without the force overwrite option. """
-        argument = Argument('source/empty-absolute.adele', 'xml', 'source', False)
+        argument = Argument('source/empty.adele', 'xml', 'source', False)
         with self.assertRaises(ValidationError) as e:
             validate_argument(argument)
         self.assertEqual(e.exception.code, ValidationError.Code.NOT_FILE)
@@ -62,7 +62,7 @@ class TestArguments(unittest.TestCase):
     def test_validation_when_output_file_is_not_a_file_with_force_overwrite_then_raise_validation_exception(self):
         """ Tests the validation function when the output path does not refer a file,
         without the force overwrite option. """
-        argument = Argument('source/empty-absolute.adele', 'xml', 'source', True)
+        argument = Argument('source/empty.adele', 'xml', 'source', True)
         with self.assertRaises(ValidationError) as e:
             validate_argument(argument)
         self.assertEqual(e.exception.code, ValidationError.Code.NOT_FILE)

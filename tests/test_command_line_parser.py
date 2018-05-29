@@ -33,7 +33,7 @@ class TestCommandLineParser(unittest.TestCase):
         """ Tests the correctness of the command line arguments parser
         by using the full arguments set.
         """
-        cmd = ['-s', 'source/empty-absolute.adele', '-i', 'xml', '-o', 'output', '-f']
+        cmd = ['-s', 'source/empty.adele', '-i', 'xml', '-o', 'output', '-f']
         argument = get_command_line_arguments(cmd)
         self.assertEqual(argument.source, cmd[1])
         self.assertEqual(argument.interpreter, cmd[3])
@@ -42,7 +42,7 @@ class TestCommandLineParser(unittest.TestCase):
 
     def test_command_line_parser_when_unrecognizable_arguments_then_raise_exception(self):
         """ Tests the guard for unrecognizable arguments. """
-        cmd = ['-s', 'source/empty-absolute.adele', '-i', 'xml', '-o', 'output', '-u']
+        cmd = ['-s', 'source/empty.adele', '-i', 'xml', '-o', 'output', '-u']
         with self.assertRaises(SystemExit) as e:
             get_command_line_arguments(cmd)
         self.assertEqual(e.exception.code, 2)
@@ -51,7 +51,7 @@ class TestCommandLineParser(unittest.TestCase):
         """ Tests the correctness of the command line arguments parser
         by using only the mandatory arguments. 
         """
-        cmd = ['-s', 'source/empty-absolute.adele', '-i', 'xml']
+        cmd = ['-s', 'source/empty.adele', '-i', 'xml']
         argument = get_command_line_arguments(cmd)
         self.assertEqual(argument.source, cmd[1])
         self.assertEqual(argument.interpreter, cmd[3])
@@ -65,7 +65,7 @@ class TestCommandLineParser(unittest.TestCase):
 
     def test_command_line_parser_when_missing_argument_interpreter_then_raise_exception(self):
         """ Tests the guard for the lack of the argument 'interpreter'. """
-        cmd = ['-s', 'source/empty-absolute.adele']
+        cmd = ['-s', 'source/empty.adele']
         with self.assertRaises(SystemExit) as e:
             get_command_line_arguments(cmd)
         self.assertEqual(e.exception.code, 2)
