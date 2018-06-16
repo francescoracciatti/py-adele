@@ -26,44 +26,17 @@ logger = logging.getLogger(__name__)
 
 class UnrecognizedError(Exception):
     """ Exception caused by an unrecognized entity. """
-
-    def __init__(self, message: str) -> None:
-        super().__init__(message)
-        self.message : str = message
-
-    def __str__(self):
-        return basestr(self)
-    
-    def __repr__(self):
-        return baserepr(self)
+    pass
 
 
 class InvalidArgumentError(Exception):
     """ Exception caused by an invalid argument. """
-
-    def __init__(self, message: str) -> None:
-        super().__init__(message)
-        self.message : str = message
-
-    def __str__(self):
-        return basestr(self)
-    
-    def __repr__(self):
-        return baserepr(self)
+    pass
 
 
 class RuntimeAssertError(Exception):
-    """ Exception caused by an assetion failing. """
-
-    def __init__(self, message: str) -> None:
-        super().__init__(message)
-        self.message : str = message
-
-    def __str__(self):
-        return basestr(self)
-    
-    def __repr__(self):
-        return baserepr(self)
+    """ Exception caused by the failing of an assertion. """
+    pass
 
 
 class Associativity(object):
@@ -75,8 +48,8 @@ class Associativity(object):
 @unique
 class ProductionType(Enum):
     """ The type of the YACC production. """
-    ACTION = 'action'
-    IDENTIFIER = 'identifier'
+    ACTION: str = 'action'
+    IDENTIFIER: str = 'identifier'
 
 
 class ScopeHandler(object):

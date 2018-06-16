@@ -50,7 +50,7 @@ class TestParser(unittest.TestCase):
         """ Tests the working complete scenario."""
         with open('source/test-complete.adele', 'r') as filesource:
             sourcecode = filesource.read()
-        scenario = parser.parse(sourcecode)
+        parser.parse(sourcecode)
 
     def tearDown(self):
         unittest.TestCase.tearDown(self)

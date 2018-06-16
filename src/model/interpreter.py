@@ -42,20 +42,8 @@ class InterpretationError(Exception):
     @unique
     class Code(IntEnum):
         """ The error codes. """
-        NOT_SUPPORTED = 1
-        OBJECT_NOT_RECOGNIZED = 2
-
-
-    def __init__(self, message: str, code: int = None) -> None:
-        super().__init__(message)
-        self.message : str = message
-        self.code : int = code
-
-    def __str__(self):
-        return basestr(self)
-
-    def __repr__(self):
-        return baserepr(self)
+        NOT_SUPPORTED: int = 1
+        OBJECT_NOT_RECOGNIZED: int = 2
 
 
 class Interpreter(object):
@@ -63,9 +51,9 @@ class Interpreter(object):
 
     @unique
     class Type(Enum):
-        XML = 'xml'
-#       JSON = 'json'
-#       YAML = 'yaml'
+        XML: str = 'xml'
+#       JSON: str = 'json'
+#       YAML: str = 'yaml'
 
     @classmethod
     def exist(cls, interpreter: str) -> bool:

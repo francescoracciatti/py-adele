@@ -30,27 +30,15 @@ class ValidationError(Exception):
     @unique
     class Code(IntEnum):
         """ The error codes. """
-        NOT_EXIST = 1
-        NOT_FILE = 2
-        NOT_SUPPORTED = 3
-
-
-    def __init__(self, message: str, code: int = None) -> None:
-        super().__init__(message)
-        self.message : str = message
-        self.code : int = code
-
-    def __str__(self):
-        return basestr(self)
-
-    def __repr__(self):
-        return baserepr(self)
+        NOT_EXIST: int = 1
+        NOT_FILE: int = 2
+        NOT_SUPPORTED: int = 3
 
 
 class Choose(object):
     """ Wraps the choose (yes/no). """
-    YES     = 'yes'
-    NO      = 'no'
+    YES: str = 'yes'
+    NO: str = 'no'
 
 
 def validate_argument(argument: Argument) -> Tuple[str, str]:
