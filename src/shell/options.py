@@ -71,7 +71,7 @@ class Argument(object):
 
     def __str__(self):
         return basestr(self)
-    
+
     def __repr__(self):
         return baserepr(self)
 

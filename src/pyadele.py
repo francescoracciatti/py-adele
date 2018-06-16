@@ -44,7 +44,7 @@ if __name__ == '__main__':
         logging.basicConfig(level=logging.INFO)
 
     logger.info("Py-ADeLe is running")
-    
+
     try:
         # Retrieves the command line arguments
         argument = get_command_line_arguments(sys.argv[1:])
