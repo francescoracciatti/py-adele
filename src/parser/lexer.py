@@ -26,7 +26,7 @@ class Keyword(Lexeme):
     """ The ADeLe's keywords. """
     # Unscoped types
     BOOLEAN             = 'boolean'
-    CHAR                = 'char'
+    CHAR                = 'char'                        
     INTEGER             = 'integer'
     FLOAT               = 'float'
     STRING              = 'string'

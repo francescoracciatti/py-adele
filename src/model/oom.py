@@ -36,10 +36,10 @@ class Literal(Container):
 
     Literals contain literal values.
     """
- 
+
     # The prefix to build the identifier of literals
     PREFIX: str = '_'
-    
+
     def __init__(self, type: str, value: str) -> None:
         self.identifier: str = '{}{}'.format(self.PREFIX, value)
         self.type: str = type
@@ -59,10 +59,11 @@ class Variable(Container):
     does not contain literal values.
     """
 
-    def __init__(self, identifier: str, type: str, reference: str) -> None:
+    def __init__(self, identifier: str, type: str, reference: str, scope: str) -> None:
         self.identifier: str = identifier
         self.type: str = type
         self.reference: str = reference
+        self.scope: str = scope
 
     def __str__(self):
         return basestr(self)

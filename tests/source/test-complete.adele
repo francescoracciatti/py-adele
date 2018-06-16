@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# This file contains the complete working description of an attack scenario. 
+# This file contains the complete working description of an attack scenario.
 # 
 # This file is strictly coupled with the unit test suite. Do not edit.
 #
@@ -9,12 +9,12 @@
 # Copyright 2018 Francesco Racciatti
 #
 
-### This is a comment ### 
+### This is a comment ###
 
 # The entry point
 scenario
 {
-	# Configures the scenario
+	# Configures the scenario, optional
 	configuration
 	{
 		# Sets the measurement unit for the time
@@ -30,14 +30,14 @@ scenario
 		setUnitLength("mm");
 		# Handles a number of semicolons
 		setUnitLength("m");;;;;
-		
+
 		# Sets the measurement unit for the angle
 		setUnitAngle("rad");
 		# Can overwrite
 		setUnitAngle("deg");
 		# Handles a number of semicolons
 		setUnitAngle("rad");;;;;
-		
+
 		# Sets the relative start time
 		setTimeStart(0.0);
 		# Can overwrite
@@ -47,4 +47,85 @@ scenario
 		# Handles a number of semicolons
 		setTimeStart(0.0);;;;;
 	}
+
+	# Describes the effects of the attacks, mandatory
+	attack
+	{
+		# Declares a bunch of heterogeneous variables
+		boolean boolean_1;
+		boolean boolean_2;;;;;
+		boolean boolean_3, boolean_4;
+		boolean boolean_5, boolean_6;;;;;
+
+		char char_1;
+		char char_2;;;;;
+		char char_3, char_4;
+		char char_5, char_6;;;;;
+
+		integer integer_1;
+		integer integer_2;;;;;
+		integer integer_3, integer_4;
+		integer integer_5, integer_6;;;;;
+
+		float float_1;
+		float float_2;;;;;
+		float float_3, float_4;
+		float float_5, float_6;;;;;
+
+		string string_1;
+		string string_2;;;;;
+		string string_3, string_4;
+		string string_5, string_6;;;;;
+
+		uint8 uint8_1;
+		uint8 uint8_2;;;;;
+		uint8 uint8_3, uint8_4;
+		uint8 uint8_5, uint8_6;;;;;
+
+		uint16 uint16_1;
+		uint16 uint16_2;;;;;
+		uint16 uint16_3, uint16_4;
+		uint16 uint16_5, uint16_6;;;;;
+
+		uint32 uint32_1;
+		uint32 uint32_2;;;;;
+		uint32 uint32_3, uint32_4;
+		uint32 uint32_5, uint32_6;;;;;
+
+		uint64 uint64_1;
+		uint64 uint64_2;;;;;
+		uint64 uint64_3, uint64_4;
+		uint64 uint64_5, uint64_6;;;;;
+
+		sint8 sint8_1;
+		sint8 sint8_2;;;;;
+		sint8 sint8_3, sint8_4;
+		sint8 sint8_5, sint8_6;;;;;
+
+		sint16 sint16_1;
+		sint16 sint16_2;;;;;
+		sint16 sint16_3, sint16_4;
+		sint16 sint16_5, sint16_6;;;;;
+
+		sint32 sint32_1;
+		sint32 sint32_2;;;;;
+		sint32 sint32_3, sint32_4;
+		sint32 sint32_5, sint32_6;;;;;
+
+		sint64 sint64_1;
+		sint64 sint64_2;;;;;
+		sint64 sint64_3, sint64_4;
+		sint64 sint64_5, sint64_6;;;;;
+
+		float32 float32_1;
+		float32 float32_2;;;;;
+		float32 float32_3, float32_4;
+		float32 float32_5, float32_6;;;;;
+
+		float64 float64_1;
+		float64 float64_2;;;;;
+		float64 float64_3, float64_4;
+		float64 float64_5, float64_6;;;;;
+	}
 }
+

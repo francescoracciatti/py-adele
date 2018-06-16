@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 # The column width
-INDENT_SPACE = ' ' * 4 
+INDENT_SPACE = ' ' * 4
 
 # Prefix for the reserved attributes
 ATTRIBUTE_RESERVED_PREFIX = '_'
@@ -73,15 +73,15 @@ class Interpreter(object):
         if interpreter.lower() in tuple(e.value.lower() for e in cls.Type):
             return True
         return False
-    
+
     @classmethod
-    def interpret(cls, scenario: Scenario, type: str) -> str:
+    def interpret(cls, scenario: Scenario, interpreter: str) -> str:
         """ Interprets the given scenario by using the requested interpreter. """
-        if type.lower() == cls.Type.XML.value.lower():
+        if interpreter.lower() == cls.Type.XML.value.lower():
             return interpret_xml(scenario)
-#        if type.lower() == cls.Type.JSON.value.lower():
+#        if interpreter.lower() == cls.Type.JSON.value.lower():
 #            return interpret_json(scenario)
-#        if type.lower() == cls.Type.YAML.value.lower():
+#        if interpreter.lower() == cls.Type.YAML.value.lower():
 #            return interpret_yaml(scenario)
         else:
             raise InterpretationError("{} not supported".format(type),
@@ -93,10 +93,10 @@ def interpret_xml(statement: Any, indentation: int = 0, index: int = None) -> st
     logger.debug("interpret_xml: statement [{}], indentation [{}]".format(
         statement.__class__.__name__,
         indentation))
-    
+
     if statement is None:
         return ''
-    
+
     xml = ''
     if indentation == 0:
         xml += '<?xml version="1.0"?>\n'
