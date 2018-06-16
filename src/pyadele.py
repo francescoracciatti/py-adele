@@ -56,18 +56,17 @@ if __name__ == '__main__':
         # Opens the source file
         with open(source, 'r') as filesource:
             sourcecode = filesource.read()
-        
+
         # Parses the source file and builds the attack scenario
         logger.info("Parsing ...")
         scenario = parser.parse(sourcecode)
         logger.info("Done")
-      
+
         # Interprets and writes the attack scenario
         logger.info("Interpreting ...")
         outputcode = Interpreter.interpret(scenario, interpreter)
         logger.info("Done")
-        
-        
+
         # Writes the output file
         with open(output, 'w') as fileoutput:
             fileoutput.write(outputcode)
