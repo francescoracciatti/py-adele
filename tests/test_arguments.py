@@ -66,9 +66,9 @@ class TestArguments(unittest.TestCase):
     def test_validation_when_output_file_exists_with_force_overwrite(self):
         """ Tests the validation function when the output path refers a file,
         with the force overwrite option. """
-        source = 'source/test-complete.adele'
+        source = 'source/empty.adele'
         interpreter = 'xml'
-        output = 'source/test-complete.xml'
+        output = 'source/empty.xml'
         argument = Argument(source, interpreter, output, True)
         validate_argument(argument)
         self.assertEqual(argument.source, source)
@@ -80,9 +80,9 @@ class TestArguments(unittest.TestCase):
         """ Tests the validation function when the output path refers a file,
         without the force overwrite option, with the mocked input function (passes yes). """
         mocked_input.side_effect = ['yes']
-        source = 'source/test-complete.adele'
+        source = 'source/empty.adele'
         interpreter = 'xml'
-        output = 'source/test-complete.xml'
+        output = 'source/empty.xml'
         argument = Argument(source, interpreter, output, False)
         validate_argument(argument)
         self.assertEqual(argument.source, source)
@@ -94,7 +94,7 @@ class TestArguments(unittest.TestCase):
         """ Tests the validation function when the output path refers a file,
         without the force overwrite option, with the mocked input function (passes no). """
         mocked_input.side_effect = ['no']
-        argument = Argument('source/test-complete.adele', 'xml', 'source/test-complete.xml', False)
+        argument = Argument('source/empty.adele', 'xml', 'source/empty.xml', False)
         with self.assertRaises(SystemExit) as e:
             validate_argument(argument)
 
