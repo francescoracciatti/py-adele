@@ -21,7 +21,7 @@ sys.path.append('../src/util/')
 import unittest
 
 from src.shell.options import Argument
-from src.shell.service import ValidationError, validate_argument
+from src.shell.service import SourceFileNotFoundError, NotAFileError, UnrecognizedInterpreterError, validate_argument
 
 
 class TestArguments(unittest.TestCase):
@@ -30,42 +30,37 @@ class TestArguments(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
 
-    def test_validation_when_source_file_does_not_exist_then_raise_validation_exception(self):
+    def test_validation_when_source_file_does_not_exist_then_raise_exception(self):
         """ Tests the validation function when the source file does not exist. """
         argument = Argument('source/unexisting-file', 'xml', '', False)
-        with self.assertRaises(ValidationError) as e:
+        with self.assertRaises(SourceFileNotFoundError) as e:
             validate_argument(argument)
-        self.assertEqual(e.exception.code, ValidationError.Code.NOT_EXIST)
 
-    def test_validation_when_source_file_is_not_a_file_then_raise_validation_exception(self):
+    def test_validation_when_source_file_is_not_a_file_then_raise_exception(self):
         """ Tests the validation function when the source path does not refer a file. """
         argument = Argument('source', 'xml', '', False)
-        with self.assertRaises(ValidationError) as e:
+        with self.assertRaises(NotAFileError) as e:
             validate_argument(argument)
-        self.assertEqual(e.exception.code, ValidationError.Code.NOT_FILE)
 
-    def test_validation_when_interpreter_not_supported_then_raise_validation_exception(self):
+    def test_validation_when_interpreter_not_supported_then_raise_exception(self):
         """ Tests the validation function when the interpreter is not supported. """
         argument = Argument('source/empty.adele', 'unexisting-interpreter', '', False)
-        with self.assertRaises(ValidationError) as e:
+        with self.assertRaises(UnrecognizedInterpreterError) as e:
             validate_argument(argument)
-        self.assertEqual(e.exception.code, ValidationError.Code.NOT_SUPPORTED)
 
-    def test_validation_when_output_file_is_not_a_file_without_force_overwrite_then_raise_validation_exception(self):
+    def test_validation_when_output_file_is_not_a_file_without_force_overwrite_then_raise_exception(self):
         """ Tests the validation function when the output path does not refer a file,
         without the force overwrite option. """
         argument = Argument('source/empty.adele', 'xml', 'source', False)
-        with self.assertRaises(ValidationError) as e:
+        with self.assertRaises(NotAFileError) as e:
             validate_argument(argument)
-        self.assertEqual(e.exception.code, ValidationError.Code.NOT_FILE)
 
-    def test_validation_when_output_file_is_not_a_file_with_force_overwrite_then_raise_validation_exception(self):
+    def test_validation_when_output_file_is_not_a_file_with_force_overwrite_then_raise_exception(self):
         """ Tests the validation function when the output path does not refer a file,
         without the force overwrite option. """
         argument = Argument('source/empty.adele', 'xml', 'source', True)
-        with self.assertRaises(ValidationError) as e:
+        with self.assertRaises(NotAFileError) as e:
             validate_argument(argument)
-        self.assertEqual(e.exception.code, ValidationError.Code.NOT_FILE)
 
     def tearDown(self):
         unittest.TestCase.tearDown(self)

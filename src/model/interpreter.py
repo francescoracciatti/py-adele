@@ -36,14 +36,14 @@ PROPERTY_VALUE_OBJECT = 'object'
 PROPERTY_VALUE_ATTRIBUTE = 'attribute'
 
 
-class InterpretationError(Exception):
-    """ Exception caused by an interpretation error. """
+class UnknownInterpreterError(Exception):
+    """ Raised when it is requested an unknown interpreter. """
+    pass
 
-    @unique
-    class Code(IntEnum):
-        """ The error codes. """
-        NOT_SUPPORTED: int = 1
-        OBJECT_NOT_RECOGNIZED: int = 2
+
+class InterpretationError(Exception):
+    """ Raised when an error occurs during the interpretation. """
+    pass  
 
 
 class Interpreter(object):
@@ -72,8 +72,7 @@ class Interpreter(object):
 #        if interpreter.lower() == cls.Type.YAML.value.lower():
 #            return interpret_yaml(scenario)
         else:
-            raise InterpretationError("{} not supported".format(type),
-                                      InterpretationError.Code.NOT_SUPPORTED)
+            raise UnknownInterpreterError("The interpreter '{}' is unknown".format(interpreter))
 
 
 def interpret_xml(statement: Any, indentation: int = 0, index: int = None) -> str:

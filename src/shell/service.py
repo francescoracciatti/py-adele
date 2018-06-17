@@ -16,12 +16,27 @@ from enum import unique, IntEnum
 from typing import Tuple
 
 from options import Argument
-from model.interpreter import Interpreter
 from util.utils import baserepr, basestr
+from model.interpreter import Interpreter
 
 
 # Creates the logger
 logger = logging.getLogger(__name__)
+
+
+class SourceFileNotFoundError(Exception):
+    """ Exception raised when cannot find the source file. """ 
+    pass
+
+
+class NotAFileError(Exception):
+    """ Exception raised when the source is not a file. """
+    pass 
+
+
+class UnrecognizedInterpreterError(Exception):
+    """ Exception raised when cannot find the source file. """ 
+    pass
 
 
 class ValidationError(Exception):
@@ -47,16 +62,13 @@ def validate_argument(argument: Argument) -> Tuple[str, str]:
     """
     # Checks if the source file exists
     if not os.path.exists(argument.source):
-        raise ValidationError("The source file '{}' does not exist".format(argument.source),
-                              ValidationError.Code.NOT_EXIST)
+        raise SourceFileNotFoundError("Source file '{}' not found".format(argument.source))
     if not os.path.isfile(argument.source):
-        raise ValidationError("The (source) path '{}' does not refer a file".format(argument.source),
-                              ValidationError.Code.NOT_FILE)
+        raise NotAFileError("The (source) path '{}' does not refer a file".format(argument.source))
 
     # Checks if the parser supports the current interpreter
     if not Interpreter.exist(argument.interpreter):
-        raise ValidationError("The interpreter '{}' is not supported".format(argument.interpreter),
-                              ValidationError.Code.NOT_SUPPORTED)
+        raise UnrecognizedInterpreterError("Cannot recognize the interpreter '{}'".format(argument.interpreter))
 
     # Checks if the output file already exists and if it can be overwritten
     if argument.output is None or not argument.output:
@@ -80,8 +92,7 @@ def validate_argument(argument: Argument) -> Tuple[str, str]:
             else:
                 logger.info("The file '{}' will be overwritten (force overwrite)".format(argument.output))
         else:
-            raise ValidationError("The (output) path '{}' does not refer a file".format(argument.output),
-                                  ValidationError.Code.NOT_FILE)
+            raise NotAFileError("The (output) path '{}' does not refer a file".format(argument.output))
 
     return [argument.source, argument.output, argument.interpreter]
 
