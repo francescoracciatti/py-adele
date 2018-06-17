@@ -72,6 +72,20 @@ class Variable(Container):
         return baserepr(self)
 
 
+class Message(Container):
+    """ Models a message. """
+
+    def __init__(self, identifier: str, scope: str):
+        self.identifier: str = identifier
+        self.scope: str= scope
+
+    def __str__(self):
+        return basestr(self)
+
+    def __repr__(self):
+        return baserepr(self)
+
+
 @unique
 class ISO(Enum):
     """ ISO measure units. """

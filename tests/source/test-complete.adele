@@ -17,108 +17,237 @@ scenario
 	# Configures the scenario, optional
 	configuration
 	{
-		# Sets the measurement unit for the time
+		# Expected usage
 		setUnitTime("s");
-		setUnitTime("ms");
-		setUnitTime("s");;;;;
-		
-		# Sets the measurement unit for the length
 		setUnitLength("m");
-		setUnitLength("mm");
-		setUnitLength("m");;;;;
-
-		# Sets the measurement unit for the angle
 		setUnitAngle("rad");
-		setUnitAngle("deg");
-		setUnitAngle("rad");;;;;
-
-		# Sets the relative start time
 		setTimeStart(0.0);
+		
+		# Can overwrite multiple times
+		setUnitTime("ms");
+		setUnitLength("mm");
+		setUnitAngle("deg");
 		setTimeStart(1.0);
-		setTimeStart(0.0);;;;;
-		# Handles integers also
-		setTimeStart(1);
-
+		
+		setUnitTime("s");
+		setUnitLength("m");
+		setUnitAngle("rad");
+		setTimeStart(0.0);
+		
+		# For the time, handles also integer values
+		setTimeStart(0);
+		
+		# Checks against multiple semicolons
+		setUnitTime("s");;;;;
+		setUnitLength("m");;;;;
+		setUnitAngle("rad");;;;;
+		setTimeStart(0.0);;;;;;
+		
+		# Checks agains chaining
+		setUnitTime("s");setUnitLength("m");setUnitAngle("rad");setTimeStart(0.0);
+		
+		# Checks agains chaining with multiple semicolons
+		setUnitTime("s");;;;;setUnitLength("m");;;;;setUnitAngle("rad");;;;;setTimeStart(0.0);;;;;
 	}
 
 	# Describes the effects of the attacks, mandatory
 	attack
 	{
-		# Declares a bunch of heterogeneous variables
+		# Declares a bunch of entities, expected usage
 		boolean boolean_1;
-		boolean boolean_2;;;;;
-		boolean boolean_3, boolean_4;
-		boolean boolean_5, boolean_6;;;;;
-
+		boolean boolean_2;
+		boolean boolean_3, boolean_4, boolean_5;
+		
 		char char_1;
-		char char_2;;;;;
-		char char_3, char_4;
-		char char_5, char_6;;;;;
-
+		char char_2;
+		char char_3, char_4, char_5;
+		
 		integer integer_1;
-		integer integer_2;;;;;
-		integer integer_3, integer_4;
-		integer integer_5, integer_6;;;;;
-
+		integer integer_2;
+		integer integer_3, integer_4, integer_5;
+		
 		float float_1;
-		float float_2;;;;;
-		float float_3, float_4;
-		float float_5, float_6;;;;;
-
+		float float_2;
+		float float_3, float_4, float_5;
+		
 		string string_1;
-		string string_2;;;;;
-		string string_3, string_4;
-		string string_5, string_6;;;;;
-
+		string string_2;
+		string string_3, string_4, string_5;
+		
 		uint8 uint8_1;
-		uint8 uint8_2;;;;;
-		uint8 uint8_3, uint8_4;
-		uint8 uint8_5, uint8_6;;;;;
-
+		uint8 uint8_2;
+		uint8 uint8_3, uint8_4, uint8_5;
+		
 		uint16 uint16_1;
-		uint16 uint16_2;;;;;
-		uint16 uint16_3, uint16_4;
-		uint16 uint16_5, uint16_6;;;;;
-
+		uint16 uint16_2;
+		uint16 uint16_3, uint16_4, uint16_5;
+		
 		uint32 uint32_1;
-		uint32 uint32_2;;;;;
-		uint32 uint32_3, uint32_4;
-		uint32 uint32_5, uint32_6;;;;;
-
+		uint32 uint32_2;
+		uint32 uint32_3, uint32_4, uint32_5;
+		
 		uint64 uint64_1;
-		uint64 uint64_2;;;;;
-		uint64 uint64_3, uint64_4;
-		uint64 uint64_5, uint64_6;;;;;
-
+		uint64 uint64_2;
+		uint64 uint64_3, uint64_4, uint64_5;
+		
 		sint8 sint8_1;
-		sint8 sint8_2;;;;;
-		sint8 sint8_3, sint8_4;
-		sint8 sint8_5, sint8_6;;;;;
-
+		sint8 sint8_2;
+		sint8 sint8_3, sint8_4, sint8_5;
+		
 		sint16 sint16_1;
-		sint16 sint16_2;;;;;
-		sint16 sint16_3, sint16_4;
-		sint16 sint16_5, sint16_6;;;;;
-
+		sint16 sint16_2;
+		sint16 sint16_3, sint16_4, sint16_5;
+		
 		sint32 sint32_1;
-		sint32 sint32_2;;;;;
-		sint32 sint32_3, sint32_4;
-		sint32 sint32_5, sint32_6;;;;;
-
+		sint32 sint32_2;
+		sint32 sint32_3, sint32_4, sint32_5;
+		
 		sint64 sint64_1;
-		sint64 sint64_2;;;;;
-		sint64 sint64_3, sint64_4;
-		sint64 sint64_5, sint64_6;;;;;
-
+		sint64 sint64_2;
+		sint64 sint64_3, sint64_4, sint64_5;
+		
 		float32 float32_1;
-		float32 float32_2;;;;;
-		float32 float32_3, float32_4;
-		float32 float32_5, float32_6;;;;;
-
+		float32 float32_2;
+		float32 float32_3, float32_4, float32_5;
+		
 		float64 float64_1;
-		float64 float64_2;;;;;
-		float64 float64_3, float64_4;
-		float64 float64_5, float64_6;;;;;
+		float64 float64_2;
+		float64 float64_3, float64_4, float64_5;
+		
+		message message_1;
+		message message_2;
+		message message_3, message_4, message_5;
+		
+		# Checks against multiple semicolons
+		boolean boolean_6;;;;;
+		boolean boolean_7;;;;;
+		boolean boolean_8, boolean_9, boolean_10;;;;;
+		
+		char char_6;;;;;
+		char char_7;;;;;
+		char char_8, char_9, char_10;;;;;
+		
+		integer integer_6;;;;;
+		integer integer_7;;;;;
+		integer integer_8, integer_9, integer_10;;;;;
+		
+		float float_6;;;;;
+		float float_7;;;;;
+		float float_8, float_9, float_10;;;;;
+		
+		string string_6;;;;;
+		string string_7;;;;;
+		string string_8, string_9, string_10;;;;;
+		
+		uint8 uint8_6;;;;;
+		uint8 uint8_7;;;;;
+		uint8 uint8_8, uint8_9, uint8_10;;;;;
+		
+		uint16 uint16_6;;;;;
+		uint16 uint16_7;;;;;
+		uint16 uint16_8, uint16_9, uint16_10;;;;;
+		
+		uint32 uint32_6;;;;;
+		uint32 uint32_7;;;;;
+		uint32 uint32_8, uint32_9, uint32_10;;;;;
+		
+		uint64 uint64_6;;;;;
+		uint64 uint64_7;;;;;
+		uint64 uint64_8, uint64_9, uint64_10;;;;;
+		
+		sint8 sint8_6;;;;;
+		sint8 sint8_7;;;;;
+		sint8 sint8_8, sint8_9, sint8_10;;;;;
+		
+		sint16 sint16_6;;;;;
+		sint16 sint16_7;;;;;
+		sint16 sint16_8, sint16_9, sint16_10;;;;;
+		
+		sint32 sint32_6;;;;;
+		sint32 sint32_7;;;;;
+		sint32 sint32_8, sint32_9, sint32_10;;;;;
+		
+		sint64 sint64_6;;;;;
+		sint64 sint64_7;;;;;
+		sint64 sint64_8, sint64_9, sint64_10;;;;;
+		
+		float32 float32_6;;;;;
+		float32 float32_7;;;;;
+		float32 float32_8, float32_9, float32_10;;;;;
+		
+		float64 float64_6;;;;;
+		float64 float64_7;;;;;
+		float64 float64_8, float64_9, float64_10;;;;;
+		
+		message message_6;;;;;
+		message message_7;;;;;
+		message message_8, message_9, message_10;;;;;
+		
+		# Checks against chaining
+		boolean boolean_11;boolean boolean_12;boolean boolean_13, boolean_14, boolean_15;
+		
+		char char_11;char char_12;char char_13, char_14, char_15;
+		
+		integer integer_11;integer integer_12;integer integer_13, integer_14, integer_15;
+		
+		float float_11;float float_12;float float_13, float_14, float_15;
+		
+		string string_11;string string_12;string string_13, string_14, string_15;
+		
+		uint8 uint8_11;uint8 uint8_12;uint8 uint8_13, uint8_14, uint8_15;
+		
+		uint16 uint16_11;uint16 uint16_12;uint16 uint16_13, uint16_14, uint16_15;
+		
+		uint32 uint32_11;uint32 uint32_12;uint32 uint32_13, uint32_14, uint32_15;
+		
+		uint64 uint64_11;uint64 uint64_12;uint64 uint64_13, uint64_14, uint64_15;
+		
+		sint8 sint8_11;sint8 sint8_12;sint8 sint8_13, sint8_14, sint8_15;
+		
+		sint16 sint16_11;sint16 sint16_12;sint16 sint16_13, sint16_14, sint16_15;
+		
+		sint32 sint32_11;sint32 sint32_12;sint32 sint32_13, sint32_14, sint32_15;
+		
+		sint64 sint64_11;sint64 sint64_12;sint64 sint64_13, sint64_14, sint64_15;
+		
+		float32 float32_11;float32 float32_12;float32 float32_13, float32_14, float32_15;
+		
+		float64 float64_11;float64 float64_12;float64 float64_13, float64_14, float64_15;
+		
+		message message_11;message message_12;message message_13, message_14, message_15;
+		
+		# Checks against chaining with multiple semicolons
+		boolean boolean_16;;;;;boolean boolean_17;;;;;boolean boolean_18, boolean_19, boolean_20;;;;;
+		
+		char char_16;;;;;char char_17;;;;;char char_18, char_19, char_20;;;;;
+		
+		integer integer_16;;;;;integer integer_17;;;;;integer integer_18, integer_19, integer_20;;;;;
+		
+		float float_16;;;;;float float_17;;;;;float float_18, float_19, float_20;;;;;
+		
+		string string_16;;;;;string string_17;;;;;string string_18, string_19, string_20;;;;;
+		
+		uint8 uint8_16;;;;;uint8 uint8_17;;;;;uint8 uint8_18, uint8_19, uint8_20;;;;;
+		
+		uint16 uint16_16;;;;;uint16 uint16_17;;;;;uint16 uint16_18, uint16_19, uint16_20;;;;;
+		
+		uint32 uint32_16;;;;;uint32 uint32_17;;;;;uint32 uint32_18, uint32_19, uint32_20;;;;;
+		
+		uint64 uint64_16;;;;;uint64 uint64_17;;;;;uint64 uint64_18, uint64_19, uint64_20;;;;;
+		
+		sint8 sint8_16;;;;;sint8 sint8_17;;;;;sint8 sint8_18, sint8_19, sint8_20;;;;;
+		
+		sint16 sint16_16;;;;;sint16 sint16_17;;;;;sint16 sint16_18, sint16_19, sint16_20;;;;;
+		
+		sint32 sint32_16;;;;;sint32 sint32_17;;;;;sint32 sint32_18, sint32_19, sint32_20;;;;;
+		
+		sint64 sint64_16;;;;;sint64 sint64_17;;;;;sint64 sint64_18, sint64_19, sint64_20;;;;;
+		
+		float32 float32_16;;;;;float32 float32_17;;;;;float32 float32_18, float32_19, float32_20;;;;;
+		
+		float64 float64_16;;;;;float64 float64_17;;;;;float64 float64_18, float64_19, float64_20;;;;;
+		
+		message message_16;;;;;message message_17;;;;;message message_18, message_19, message_20;;;;;
 	}
 }
 

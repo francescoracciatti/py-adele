@@ -111,14 +111,20 @@ class SymbolTable(object):
     symbol_table: Dict[str, Any] = dict()
 
     def store_literal(self, type: Keyword, value: str) -> Literal:
-        """ Stores the given literal and returns its identifier. """
+        """ Stores the given literal and returns the literal itself. """
         symbol = Literal(type.lexeme, value)
         self.symbol_table[symbol.identifier] = symbol
         return symbol
 
     def store_variable(self, scope: str, identifier: str, type: Keyword, value: str) -> Variable:
-        """ Stores the given variable and returns its identifier. """
+        """ Stores the given variable and returns the variable itself. """
         symbol = Variable(scope, identifier, type.lexeme, value)
+        self.symbol_table[identifier] = symbol
+        return symbol
+
+    def store_message(self, scope: str, identifier: str) -> Message:
+        """ Stores the given message and returns the message itself. """
+        symbol = Message(identifier, scope)
         self.symbol_table[identifier] = symbol
         return symbol
 
@@ -147,11 +153,19 @@ class GlobalSymbolTable(object):
 
     @classmethod
     def store_variable(cls, scope: str, identifier: str, type: Keyword, value: str) -> Variable:
-        """ Defines the given symbol. """
+        """ Stores the given variable into the related symbol table. """
         if cls.global_symbol_table.get(scope, None) is None:
             cls.global_symbol_table[scope] = SymbolTable()
         symbol_table = cls.global_symbol_table[scope]
         return symbol_table.store_variable(scope, identifier, type, value)
+
+    @classmethod
+    def store_message(cls, scope: str, identifier: str) -> Message:
+        """ Stores the given message into the related symbol table. """
+        if cls.global_symbol_table.get(scope, None) is None:
+            cls.global_symbol_table[scope] = SymbolTable()
+        symbol_table = cls.global_symbol_table[scope]
+        return symbol_table.store_message(scope, identifier)
 
     @classmethod
     def retrieve(cls, scope: str, identifier: str) -> Any:
@@ -542,7 +556,7 @@ def p_declaration_boolean_set(p: YaccProduction) -> None:
     declaration_boolean_set : BOOLEAN declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.BOOLEAN, None)
@@ -555,7 +569,7 @@ def p_declaration_char_set(p: YaccProduction) -> None:
     declaration_char_set : CHAR declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.CHAR, None)
@@ -568,7 +582,7 @@ def p_declaration_integer_set(p: YaccProduction) -> None:
     declaration_integer_set : INTEGER declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.INTEGER, None)
@@ -581,7 +595,7 @@ def p_declaration_float_set(p: YaccProduction) -> None:
     declaration_float_set : FLOAT declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.FLOAT, None)
@@ -594,7 +608,7 @@ def p_declaration_string_set(p: YaccProduction) -> None:
     declaration_string_set : STRING declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.STRING, None)
@@ -607,7 +621,7 @@ def p_declaration_uint8_set(p: YaccProduction) -> None:
     declaration_uint8_set : UINT8 declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.UINT8, None)
@@ -620,7 +634,7 @@ def p_declaration_uint16_set(p: YaccProduction) -> None:
     declaration_uint16_set : UINT16 declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.UINT16, None)
@@ -633,7 +647,7 @@ def p_declaration_uint32_set(p: YaccProduction) -> None:
     declaration_uint32_set : UINT32 declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.UINT32, None)
@@ -646,7 +660,7 @@ def p_declaration_uint64_set(p: YaccProduction) -> None:
     declaration_uint64_set : UINT64 declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.UINT64, None)
@@ -659,7 +673,7 @@ def p_declaration_sint8_set(p: YaccProduction) -> None:
     declaration_sint8_set : SINT8 declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.SINT8, None)
@@ -672,7 +686,7 @@ def p_declaration_sint16_set(p: YaccProduction) -> None:
     declaration_sint16_set : SINT16 declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.SINT16, None)
@@ -685,7 +699,7 @@ def p_declaration_sint32_set(p: YaccProduction) -> None:
     declaration_sint32_set : SINT32 declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.SINT32, None)
@@ -698,7 +712,7 @@ def p_declaration_sint64_set(p: YaccProduction) -> None:
     declaration_sint64_set : SINT64 declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.SINT64, None)
@@ -711,7 +725,7 @@ def p_declaration_float32_set(p: YaccProduction) -> None:
     declaration_float32_set : FLOAT32 declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.FLOAT32, None)
@@ -724,40 +738,64 @@ def p_declaration_float64_set(p: YaccProduction) -> None:
     declaration_float64_set : FLOAT64 declaration_identifier_set semicolons
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
-    # Stores the declared variable into the symbol table
+    # Stores the declared variables into the symbol table
     scope_identifier = ScopeHandler.get_current_scope_identifier()
     for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
         GlobalSymbolTable.store_variable(scope_identifier, identifier, Keyword.FLOAT64, None)
     CurrentScope.clean(ProductionType.IDENTIFIER)
 
 
-# Catches the declaration of a set of homogeneous variables
-def p_declaration_homogeneous_variable_set(p: YaccProduction) -> None:
+# Catches the declaration of generic messages
+def p_declaration_message_set(p: YaccProduction) -> None:
     '''
-    declaration_homogeneous_variable_set : declaration_boolean_set
-                                         | declaration_char_set
-                                         | declaration_integer_set
-                                         | declaration_float_set
-                                         | declaration_string_set
-                                         | declaration_uint8_set
-                                         | declaration_uint16_set
-                                         | declaration_uint32_set
-                                         | declaration_uint64_set
-                                         | declaration_sint8_set
-                                         | declaration_sint16_set
-                                         | declaration_sint32_set
-                                         | declaration_sint64_set
-                                         | declaration_float32_set
-                                         | declaration_float64_set
+    declaration_message_set : MESSAGE declaration_identifier_set semicolons
+    '''
+    logger.debug("Yacc production: {}".format(p[1:]))
+    # Stores the declared message into the symbol table
+    scope_identifier = ScopeHandler.get_current_scope_identifier()
+    for identifier in CurrentScope.get(ProductionType.IDENTIFIER):
+        GlobalSymbolTable.store_message(scope_identifier, identifier)
+    CurrentScope.clean(ProductionType.IDENTIFIER)
+
+
+# Catches the declaration of a set of variables
+def p_declaration_variable_set(p: YaccProduction) -> None:
+    '''
+    declaration_variable_set : declaration_boolean_set
+                             | declaration_char_set
+                             | declaration_integer_set
+                             | declaration_float_set
+                             | declaration_string_set
+                             | declaration_uint8_set
+                             | declaration_uint16_set
+                             | declaration_uint32_set
+                             | declaration_uint64_set
+                             | declaration_sint8_set
+                             | declaration_sint16_set
+                             | declaration_sint32_set
+                             | declaration_sint64_set
+                             | declaration_float32_set
+                             | declaration_float64_set
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
 
 
 # Catches the declaration of a set of heterogeneous variables
-def p_declaration_heterogeneous_variable_set(p: YaccProduction) -> None:
+#def p_declaration_heterogeneous_variable_set(p: YaccProduction) -> None:
+#    '''
+#    declaration_heterogeneous_variable_set : declaration_homogeneous_variable_set
+#                                           | declaration_homogeneous_variable_set declaration_heterogeneous_variable_set
+#    '''
+#    logger.debug("Yacc production: {}".format(p[1:]))
+
+
+# Catches the declaration of a number of entities
+def p_declaration_entities(p: YaccProduction) -> None:
     '''
-    declaration_heterogeneous_variable_set : declaration_homogeneous_variable_set
-                                           | declaration_homogeneous_variable_set declaration_heterogeneous_variable_set
+    declaration_entities : declaration_variable_set
+                         | declaration_message_set
+                         | declaration_variable_set declaration_entities
+                         | declaration_message_set declaration_entities
     '''
     logger.debug("Yacc production: {}".format(p[1:]))
 
@@ -767,7 +805,7 @@ def p_declaration_heterogeneous_variable_set(p: YaccProduction) -> None:
 def p_attack_compound_statement(p: YaccProduction) -> None:
     '''
     attack_compound_statement : ATTACK curvy_left empty curvy_right
-                              | ATTACK curvy_left declaration_heterogeneous_variable_set curvy_right
+                              | ATTACK curvy_left declaration_entities curvy_right
     '''
     # TODO this is a stub, to be implemented
     pass
