@@ -43,7 +43,7 @@ class UnknownInterpreterError(Exception):
 
 class InterpretationError(Exception):
     """ Raised when an error occurs during the interpretation. """
-    pass  
+    pass
 
 
 class Interpreter(object):

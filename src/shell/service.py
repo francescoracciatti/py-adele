@@ -25,29 +25,18 @@ logger = logging.getLogger(__name__)
 
 
 class SourceFileNotFoundError(Exception):
-    """ Exception raised when cannot find the source file. """ 
+    """ Exception raised when cannot find the source file. """
     pass
 
 
 class NotAFileError(Exception):
     """ Exception raised when the source is not a file. """
-    pass 
-
-
-class UnrecognizedInterpreterError(Exception):
-    """ Exception raised when cannot find the source file. """ 
     pass
 
 
-class ValidationError(Exception):
-    """ Exception caused by a validation error. """
-
-    @unique
-    class Code(IntEnum):
-        """ The error codes. """
-        NOT_EXIST: int = 1
-        NOT_FILE: int = 2
-        NOT_SUPPORTED: int = 3
+class UnrecognizedInterpreterError(Exception):
+    """ Exception raised when cannot find the source file. """
+    pass
 
 
 class Choose(object):
