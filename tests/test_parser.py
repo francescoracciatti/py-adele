@@ -51,6 +51,7 @@ class TestParser(unittest.TestCase):
         with open('source/test-complete.adele', 'r') as filesource:
             sourcecode = filesource.read()
         parser.parse(sourcecode)
+        # TODO checks the xml against the xml scheme
 
     def tearDown(self):
         unittest.TestCase.tearDown(self)
@@ -58,3 +59,4 @@ class TestParser(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+

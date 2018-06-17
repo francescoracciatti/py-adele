@@ -12,11 +12,9 @@ Copyright 2018 Francesco Racciatti
 import os
 import sys
 import logging
-from enum import unique, IntEnum
 from typing import Tuple
 
 from options import Argument
-from util.utils import baserepr, basestr
 from model.interpreter import Interpreter
 
 

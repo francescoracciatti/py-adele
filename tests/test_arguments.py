@@ -19,6 +19,7 @@ sys.path.append('../src/shell/')
 sys.path.append('../src/util/')
 
 import unittest
+from unittest import mock
 
 from src.shell.options import Argument
 from src.shell.service import SourceFileNotFoundError, NotAFileError, UnrecognizedInterpreterError, validate_argument
@@ -62,9 +63,45 @@ class TestArguments(unittest.TestCase):
         with self.assertRaises(NotAFileError) as e:
             validate_argument(argument)
 
+    def test_validation_when_output_file_exists_with_force_overwrite(self):
+        """ Tests the validation function when the output path refers a file,
+        with the force overwrite option. """
+        source = 'source/test-complete.adele'
+        interpreter = 'xml'
+        output = 'source/test-complete.xml'
+        argument = Argument(source, interpreter, output, True)
+        validate_argument(argument)
+        self.assertEqual(argument.source, source)
+        self.assertEqual(argument.interpreter, interpreter)
+        self.assertEqual(argument.output, output)
+    
+    @mock.patch('src.shell.service.input', create=True)
+    def test_validation_when_output_file_exists_check_overwrite_yes(self, mocked_input):
+        """ Tests the validation function when the output path refers a file,
+        without the force overwrite option, with the mocked input function (passes yes). """
+        mocked_input.side_effect = ['yes']
+        source = 'source/test-complete.adele'
+        interpreter = 'xml'
+        output = 'source/test-complete.xml'
+        argument = Argument(source, interpreter, output, False)
+        validate_argument(argument)
+        self.assertEqual(argument.source, source)
+        self.assertEqual(argument.interpreter, interpreter)
+        self.assertEqual(argument.output, output)
+    
+    @mock.patch('src.shell.service.input', create=True)
+    def test_validation_when_output_file_exists_check_overwrite_no(self, mocked_input):
+        """ Tests the validation function when the output path refers a file,
+        without the force overwrite option, with the mocked input function (passes no). """
+        mocked_input.side_effect = ['no']
+        argument = Argument('source/test-complete.adele', 'xml', 'source/test-complete.xml', False)
+        with self.assertRaises(SystemExit) as e:
+            validate_argument(argument)
+
     def tearDown(self):
         unittest.TestCase.tearDown(self)
 
 
 if __name__ == '__main__':
     unittest.main()
+
